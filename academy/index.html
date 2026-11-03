@@ -65,7 +65,7 @@ footer{padding-block:36px 48px;border-top:1px solid var(--line);font-size:13px;c
 .hero-side img{width:76px;height:76px;border-radius:50%;object-fit:cover;object-position:50% 20%;display:block;border:2px solid var(--hl);flex:none}
 .hero-side figcaption{font-size:14px;line-height:1.5;color:#c3cbe0}
 .hero-side figcaption b{color:#fff;font-size:16px}
-.reels{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:-18px;padding:0 18px 8px;scrollbar-width:none}
+.reels{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:-20px;padding:0 20px 8px;scroll-padding-inline:20px;scrollbar-width:none}
 .reels::-webkit-scrollbar{display:none}
 .reel{flex:0 0 64%;max-width:250px;scroll-snap-align:start;display:flex;flex-direction:column;gap:6px;margin:0}
 .reel video{width:100%;aspect-ratio:9/16;border-radius:12px;background:#000;object-fit:cover;display:block}
@@ -112,6 +112,20 @@ footer{padding-block:36px 48px;border-top:1px solid var(--line);font-size:13px;c
 .lamp i{background:#e0392b;box-shadow:0 0 0 3px rgba(224,57,43,.25)}
 ul.only li::before{background:var(--hl)}
 header.top{margin-bottom:0}
+/* 섹션마다 흰 상자, 류상만의 특징은 남색 카드 + 노란 배지 */
+main.box,section{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:28px 20px;margin-block:18px;box-shadow:0 1px 0 rgba(20,36,72,.04),0 12px 28px -22px rgba(20,36,72,.35)}
+section>.k{display:inline-block;align-self:flex-start;background:var(--navy);color:#fff;padding:3px 10px;border-radius:6px;letter-spacing:.12em}
+section.last{background:var(--navy);color:#fff;border-color:var(--navy)}
+section.last .btn.main{background:var(--hl);color:#121c36}
+section.only-sec{background:linear-gradient(180deg,#eef2fb,var(--paper));border:2px solid var(--navy)}
+.feat{display:grid;gap:12px}
+.feat .f{position:relative;background:var(--navy);color:#fff;border-radius:14px;padding:18px 18px 18px;display:flex;flex-direction:column;gap:6px}
+.feat .f b{font-size:18px;line-height:1.35}
+.feat .f p{margin:0;color:#c3cbe0;font-size:14.5px;line-height:1.6}
+.feat .f a{color:var(--hl);font-weight:700;font-size:14.5px;text-decoration:none;margin-top:4px}
+.badge{align-self:flex-start;background:var(--hl);color:#121c36;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 9px;border-radius:999px}
+.tagai{display:inline-block;background:var(--hl);color:#121c36;font-size:11.5px;font-weight:800;border-radius:999px;padding:1px 8px;margin-left:6px;vertical-align:2px}
+@media (min-width:900px){section{padding:44px 44px}section>.k{justify-self:start}.feat{grid-template-columns:1fr 1fr;gap:16px}.feat .f{padding:24px}}
 </style>
 </head><body>
 
@@ -140,7 +154,7 @@ header.top{margin-bottom:0}
     <div class="k">COURSES</div>
     <h2>과정은 두 가지예요</h2>
     <div class="courses"><div class="course">
-      <h3>입문 12주</h3>
+      <h3>입문 12주 <span class="tagai">AI 진단 포함</span></h3>
       <dl>
         <dt>누구</dt><dd>신입 쇼호스트 지망생, 라이브 방송을 준비하는 분</dd>
         <dt>기간</dt><dd>12주, 주 1회 90분</dd>
@@ -159,14 +173,15 @@ header.top{margin-bottom:0}
     <p class="common"><b>입과 테스트</b> · 1분 자기소개와 3분 상품 PT 영상으로 입과 테스트를 해요. 한 반 4명 정원이라, 결과에 따라 이번 기수에는 함께하지 못할 수도 있어요.</p>
   </section>
 
-  <section>
+  <section class="only-sec">
     <div class="k">ONLY HERE</div>
     <h2>류상 쇼호스트 아카데미에만 있는 것</h2>
-    <ul class="only">
-      <li><b>28년 차 쇼호스트가 직접 만든 설득화법 AI 진단.</b> AI가 먼저 재고, 류상 원장이 직접 판정해요. 혼자 연습할 때도 쓸 수 있어요.</li>
-      <li><b>매 수업 원장 1:1 피드백.</b> 한 반 4명이라 가능해요.</li>
-      <li><b>수료 후 모바일 라이브 방송 오디션 기회.</b> 통과하면 CJ ENM, 현대홈쇼핑, 롯데홈쇼핑, 공영쇼핑 등 모바일 방송 출연 오디션 기회까지 이어 드려요.</li>
-    </ul>
+    <div class="feat">
+      <div class="f"><span class="badge">ONLY 류상</span><b>설득화법 AI 진단</b><p>28년 차 쇼호스트가 직접 만든 기준으로 AI가 먼저 재고, 류상 원장이 직접 판정해요. 혼자 연습할 때도 써요.</p></div>
+      <div class="f"><span class="badge">ONLY 류상</span><b>쇼호스트 적성 진단 퀴즈</b><p>신청 전에 나의 쇼호스트 적성을 먼저 알아봐요. 결과를 보고 상담으로 이어져요.</p><a href="https://showhost-quiz.ryusang73.workers.dev">지금 해 보기 →</a></div>
+      <div class="f"><span class="badge">ONLY 류상</span><b>매 수업 원장 1:1 피드백</b><p>한 반 4명이라 가능해요. 28년 차 원장이 모든 수업을 직접 맡아요.</p></div>
+      <div class="f"><span class="badge">ONLY 류상</span><b>홈쇼핑 모바일 방송 오디션 기회</b><p>수료 후 모바일 라이브 방송 오디션, 통과하면 CJ ENM·현대홈쇼핑·롯데홈쇼핑·공영쇼핑 등 모바일 방송 출연 오디션 기회까지.</p></div>
+    </div>
   </section>
 
   <section>
