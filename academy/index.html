@@ -61,7 +61,9 @@ summary:focus-visible{outline:2px solid var(--onair);outline-offset:3px}
 details p{margin:8px 0 0;color:var(--sub);font-size:15px}
 .refund{font-size:15px;color:var(--sub);margin:0}
 footer{padding-block:36px 48px;border-top:1px solid var(--line);font-size:13px;color:var(--sub);display:flex;flex-direction:column;gap:6px}
-.hero-side{display:none}
+.hero-side{display:block;order:-1;margin:0;position:relative}
+.hero-side img{width:100%;height:auto;aspect-ratio:1/1;object-fit:cover;object-position:50% 18%;border-radius:16px;display:block}
+.hero-side figcaption{position:absolute;left:12px;bottom:12px;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:8px 12px;font-size:13px;line-height:1.45}
 .reels{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:-18px;padding:0 18px 8px;scrollbar-width:none}
 .reels::-webkit-scrollbar{display:none}
 .reel{flex:0 0 64%;max-width:250px;scroll-snap-align:start;display:flex;flex-direction:column;gap:6px;margin:0}
@@ -80,8 +82,9 @@ footer{padding-block:36px 48px;border-top:1px solid var(--line);font-size:13px;c
  .cta .btn{min-width:280px}
  .hint{text-align:left}
  .hero-side{display:block;position:relative}
- .hero-side video{width:100%;max-width:340px;aspect-ratio:9/16;object-fit:cover;border-radius:18px;display:block;margin-left:auto;box-shadow:0 30px 60px -30px rgba(0,0,0,.45)}
- .hero-side figcaption{position:absolute;left:0;bottom:24px;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:14px;max-width:220px}
+ .hero-side{order:0}
+ .hero-side img{max-width:400px;aspect-ratio:2/3;object-position:50% 30%;margin-left:auto;border-radius:18px;box-shadow:0 30px 60px -30px rgba(0,0,0,.45)}
+ .hero-side figcaption{left:0;bottom:28px;font-size:14px;padding:10px 14px}
  .nums div{padding:28px 6px}
  .nums b{font-size:38px}
  .nums span{font-size:14px}
@@ -114,7 +117,7 @@ footer{padding-block:36px 48px;border-top:1px solid var(--line);font-size:13px;c
       <p class="hint">먼저 나의 쇼호스트 적성을 알아본 뒤, 신청서로 이어져요.</p>
     </div>
     </div>
-    <figure class="hero-side"><video src="/reels/h03.mp4" poster="/reels/h03.jpg" muted autoplay loop playsinline preload="metadata"></video><figcaption><b>실제 방송 장면</b><br>마감 4분, 결정을 미루는 고객에게</figcaption></figure>
+    <figure class="hero-side"><img src="/img/ryusang.jpg" alt="류상 원장" width="800" height="1200"><figcaption><b>류상 원장</b><br>28년 차 쇼호스트 · 누적 매출 4조 8천억</figcaption></figure>
   </div>
 
   <div class="nums">
