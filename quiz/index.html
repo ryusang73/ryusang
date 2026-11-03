@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<link rel="canonical" href="https://www.ryusanglab.com/quiz/">
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>쇼호스트 준비도 진단</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+/* 한 화면씩 넘기는 세로 카드 흐름: 표지 → 10문항 → 결과. 남색 무대 + 노란 조명 */
+:root{
+  --bg:#f4f6fb; --card:#ffffff; --ink:#112147; --sub:#56617b; --line:#dde3ef;
+  --stage:#112147; --stage-ink:#ffffff; --spot:#ffcc00; --spot-ink:#112147; --soft:#eaf0fb;
+  --display:"Black Han Sans","Noto Sans KR",system-ui,sans-serif;
+  --body:"Noto Sans KR",system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a1122;--card:#131c35;--ink:#eef1f8;--sub:#a8b2c8;--line:#26314f;--stage:#0d1830;--soft:#1a2545;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0a1122;--card:#131c35;--ink:#eef1f8;--sub:#a8b2c8;--line:#26314f;--stage:#0d1830;--soft:#1a2545;color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.6;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 32px}
+main{max-width:520px;margin:0 auto}
+.stage{background:var(--stage);color:var(--stage-ink);border-radius:18px;padding:28px 22px;position:relative;overflow:hidden}
+.stage::before{content:"";position:absolute;inset:-40% -20% auto;height:120%;background:radial-gradient(closest-side,rgba(255,204,0,.22),transparent);pointer-events:none}
+.band{font-family:var(--display);font-size:1.05rem;letter-spacing:.02em;position:relative}
+.band small{display:block;font-family:var(--body);font-weight:700;font-size:.82rem;color:var(--spot)}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.2;margin:18px 0 10px;text-wrap:balance;position:relative}
+h1 em{font-style:normal;color:var(--spot)}
+.lead{color:#c9d2e6;margin:0;position:relative}
+.gets{display:grid;gap:10px;margin:22px 0 0;padding:0;list-style:none;position:relative}
+.gets li{display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,.07);border-radius:12px;padding:12px 14px}
+.gets b{font-family:var(--display);font-weight:400;color:var(--spot);font-size:1.2rem;min-width:1.4em}
+.btn{display:block;width:100%;border:0;border-radius:14px;padding:16px;font:700 1.08rem var(--body);background:var(--spot);color:var(--spot-ink);cursor:pointer;text-align:center;text-decoration:none}
+.btn:focus-visible,.opt:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.stage .btn{margin-top:22px;position:relative}
+.trust{margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+.trust h2{font-size:1rem;margin:0 0 8px}
+.trust p{margin:0;color:var(--sub)}
+.trust .order{margin:0 0 10px;color:var(--ink);font-weight:700}
+.nums{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.nums div{flex:1;min-width:88px;background:var(--soft);border-radius:10px;padding:10px 12px}
+.nums b{display:block;font-family:var(--display);font-weight:400;font-size:1.3rem;font-variant-numeric:tabular-nums}
+.nums span{font-size:.82rem;color:var(--sub)}
+.q{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 18px}
+.bar{height:6px;background:var(--soft);border-radius:3px;overflow:hidden;margin-bottom:14px}
+.bar i{display:block;height:100%;background:var(--spot);transition:width .3s}
+.qn{font-size:.85rem;color:var(--sub);font-variant-numeric:tabular-nums}
+.q h2{font-size:1.2rem;margin:4px 0 16px;text-wrap:balance}
+.opts{display:grid;gap:10px}
+.opt{text-align:left;font:500 1rem var(--body);color:var(--ink);background:var(--soft);border:2px solid transparent;border-radius:12px;padding:14px;cursor:pointer}
+.opt:hover{border-color:var(--spot)}
+.opt.on{border-color:var(--spot);background:var(--card);font-weight:700}
+.opt.on::before{content:"✓ ";color:#c99a00}
+.opts .btn{margin-top:6px}
+.btn:disabled{opacity:.4;cursor:default}
+.qsub{margin:-8px 0 14px;color:var(--sub);font-size:.92rem}
+.steps{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:10px}
+.steps li{display:flex;gap:10px;align-items:flex-start}
+.steps b{flex:none;width:28px;height:28px;border-radius:50%;background:var(--ink);color:var(--card);display:grid;place-items:center;font-size:.9rem}
+.msg{background:var(--soft);border-radius:12px;padding:14px;margin-top:12px;white-space:pre-wrap;font-weight:500}
+.msg small{display:block;color:var(--sub);font-weight:400;margin-bottom:4px}
+.btn.alt{background:var(--ink);color:var(--card)}
+.msg span{user-select:text}
+.done{color:#1f8a4c;font-weight:700;margin-top:10px;text-align:center}
+.back{background:none;border:0;color:var(--sub);font:inherit;margin-top:14px;cursor:pointer;padding:4px 0}
+.score{text-align:center;position:relative}
+.score .big{font-family:var(--display);font-size:4.4rem;line-height:1;color:var(--spot);font-variant-numeric:tabular-nums}
+.score .of{color:#c9d2e6}
+.areas{display:grid;gap:12px;margin-top:18px}
+.area .top{display:flex;justify-content:space-between;font-weight:700;font-size:.95rem}
+.area .top span:last-child{font-variant-numeric:tabular-nums;color:var(--sub)}
+.area .track{height:10px;background:var(--soft);border-radius:5px;overflow:hidden;margin-top:4px}
+.area .track i{display:block;height:100%;background:var(--ink)}
+.area.weak .track i{background:#e0a400}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin-top:14px}
+.card h2{font-size:1.05rem;margin:0 0 10px}
+.tip{margin:0 0 10px}.tip b{display:block}
+.tip:last-child{margin-bottom:0}
+.rec{font-family:var(--display);font-weight:400;font-size:1.5rem;margin:2px 0 6px}
+.note{color:var(--sub);font-size:.88rem;margin:10px 0 0}
+.handle{user-select:all;font-weight:700}
+.cheer{text-align:center;font-weight:700;margin:18px 0 0}
+.sample{font-size:.8rem;color:var(--sub);text-align:center;margin:0 0 10px}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+</style>
+</head>
+<body>
+
+<main>
+<section id="intro">
+  <div class="stage">
+    <div class="band">28년 차 쇼호스트 류상<small>쇼호스트들의 선생님</small></div>
+    <h1>쇼호스트, 준비는 하는데<br><em>왜 자꾸 떨어질까?</em></h1>
+    <p class="lead">면접관이 실제로 보는 5가지로 지금 내 준비를 3분 만에 점검해 보세요.</p>
+    <ul class="gets">
+      <li><b>1</b><span><strong>내 준비도 점수</strong> (100점)</span></li>
+      <li><b>2</b><span>면접관이 보는 5가지 중 <strong>내가 약한 곳</strong>과 고치는 법</span></li>
+      <li><b>3</b><span><strong>나에게 맞는 과정</strong> 추천 (입문 12주 · SHOW CLASS)</span></li>
+    </ul>
+    <button class="btn" id="start" type="button">3분 진단 시작</button>
+  </div>
+  <div class="trust">
+    <h2>누가 만든 진단인가요?</h2>
+    <p class="order">28년 차 쇼호스트 류상이 만들었습니다.<br>18년 동안 신입 쇼호스트를 가르치고 면접관으로 뽑았습니다.</p>
+    <p>신입 쇼호스트를 뽑을 때 실제로 보던 5가지(발음·발성, 나만의 이야기, 마지막 한 줄, 자신감·활기, 이미지·카메라 대응)로 문항을 짰습니다.</p>
+    <div class="nums"><div><b>28년</b><span>홈쇼핑 생방송</span></div><div><b>4조 8천억</b><span>누적 매출</span></div><div><b>8개국</b><span>쇼호스트 교육</span></div></div>
+  </div>
+</section>
+
+<section id="quiz" hidden>
+  <div class="q">
+    <div class="bar"><i id="prog"></i></div>
+    <div class="qn" id="qn"></div>
+    <h2 id="qt"></h2>
+    <p class="qsub" id="qsub" hidden></p>
+    <div class="opts" id="opts"></div>
+    <button class="back" id="back" type="button">← 이전 문항</button>
+  </div>
+</section>
+
+<section id="result" hidden>
+  <div class="stage score">
+    <div class="band">쇼호스트 준비도</div>
+    <div class="big" id="total">0</div>
+    <div class="of">100점 만점</div>
+  </div>
+  <div class="card">
+    <h2>면접관이 보는 5가지</h2>
+    <div class="areas" id="areas"></div>
+  </div>
+  <div class="card">
+    <h2>먼저 채울 곳</h2>
+    <div id="tips"></div>
+  </div>
+  <div class="card">
+    <h2>추천 과정</h2>
+    <div class="rec" id="rec"></div>
+    <p id="recwhy" style="margin:0"></p>
+  </div>
+  <div class="card" id="cta">
+    <h2>입과 역량 평가 신청</h2>
+    <p style="margin:0">1분 자기소개 영상과 3분 미만 상품 소개 영상으로 설득화법 AI 진단과 류상 원장 판정을 받아 보세요.</p>
+    <div class="msg" id="msg"><small>신청서에 미리 적혀 들어가요</small><span id="msgtext"></span></div>
+    <a class="btn" id="apply" style="margin-top:14px" href="#" target="_blank" rel="noopener">입과 역량 평가 신청하기</a>
+    <ol class="steps">
+      <li><b>1</b><span>버튼을 누르면 신청서가 열려요. 진단 점수와 추천 과정은 미리 적혀 있어요.</span></li>
+      <li><b>2</b><span>이름·연락처·메일 주소를 적고, 몇 가지만 고른 뒤 「제출」을 눌러 주세요. 1분이면 끝나요.</span></li>
+      <li><b>3</b><span>3일 안에(휴일 제외) 메일로 영상 2개(1분 자기소개, 3분 미만 상품 소개) 보내는 법을 알려 드려요.</span></li>
+    </ol>
+    <p class="note">궁금한 점은 <a class="handle" href="https://pf.kakao.com/_LxdPWX/chat" target="_blank" rel="noopener">카카오톡 채널 「류상쇼호스트아카데미」</a>로 물어봐 주세요. 모집 기간 11월 9일 ~ 11월 29일.</p>
+  </div>
+  <p class="cheer">합격은 끝까지 응원하고,<br>모바일 방송 출연 기회까지 한 번에!</p>
+  <button class="back" id="again" type="button" style="display:block;margin:12px auto 0">처음부터 다시 하기</button>
+</section>
+</main>
+
+<script>
+const AREAS={voice:'발음·발성',story:'나만의 이야기',close:'마지막 한 줄',energy:'자신감·활기',camera:'이미지·카메라 대응'};
+const TIPS={
+ voice:['발음·발성','매일 1분 상품 설명을 녹음해서 들어 보세요. 끝 음절이 흐려지는 곳을 표시하고 그 문장만 세 번 다시 읽어 보세요.'],
+ story:['나만의 이야기','자기소개에 「내가 직접 써 보고 놀란 순간」 하나를 넣어 보세요. 면접관은 스펙보다 그 사람만 할 수 있는 이야기를 기억합니다.'],
+ close:['마지막 한 줄','상품 설명을 「그래서 지금 사야 하는 이유」 한 문장으로 끝내는 연습을 하세요. 끝맺음이 약하면 앞의 설명이 다 흩어집니다.'],
+ energy:['자신감·활기','휴대폰 카메라 앞에서 1분 상품 설명을 하루 한 번 찍어 보세요. 익숙해지면 3분으로 늘려 보세요. 카메라에 익숙해지는 것만으로 목소리와 표정이 살아납니다.'],
+ camera:['이미지·카메라 대응','찍은 영상을 소리 끄고 보세요. 시선이 렌즈를 벗어나는 순간, 손이 머리로 가는 순간을 찾아 하나씩 고쳐 보세요.']
+};
+const Q=[
+ {t:'카메라 앞에서 1~3분 동안 상품을 설명해 본 적이 있나요?',a:'energy',o:[['아직 없어요',0],['한두 번 해 봤어요',1],['가끔 연습해요',2],['매주 찍어서 연습해요',3]]},
+ {t:'내 목소리를 녹음해서 들어 본 적이 있나요?',a:'voice',o:[['없어요',0],['들어 봤는데 어색했어요',1],['가끔 듣고 고쳐요',2],['정기적으로 듣고 고쳐요',3]]},
+ {t:'1분 동안 빠르기를 일정하게, 또박또박 말할 수 있나요?',a:'voice',o:[['급해지거나 웅얼거려요',0],['긴장하면 무너져요',1],['대체로 괜찮아요',2],['자신 있어요',3]]},
+ {t:'자기소개에 「나만의 경험 이야기」가 들어 있나요?',a:'story',o:[['아직 자기소개가 없어요',0],['경력·스펙 위주예요',1],['이야기가 하나 있어요',2],['상황별로 여러 개 있어요',3]]},
+ {t:'상품을 처음 받으면 어떻게 공부하나요?',sub:'해당하는 것을 모두 골라 주세요.',a:'story',multi:true,o:[['상세 페이지를 꼼꼼히 읽어요',1],['특징을 정리해서 외워요',1],['직접 써 보고 느낀 점을 적어요',1],['고객이 왜 사는지 정리해요',1],['경쟁 상품과 비교해 봐요',1],['아직 따로 공부해 본 적이 없어요',0,'none']]},
+ {t:'상품 설명을 「지금 사야 하는 이유」 한 줄로 끝낼 수 있나요?',a:'close',o:[['어떻게 끝낼지 모르겠어요',0],['「감사합니다」로 끝나요',1],['가끔 돼요',2],['항상 준비해 둬요',3]]},
+ {t:'말하다가 막히면 어떻게 되나요?',a:'energy',o:[['머리가 하얘져요',0],['처음부터 다시 해요',1],['잠깐 멈췄다 이어가요',2],['자연스럽게 다른 말로 넘어가요',3]]},
+ {t:'내가 말하는 영상을 보고 표정·시선을 고쳐 본 적이 있나요?',a:'camera',o:[['영상을 본 적이 없어요',0],['보기만 했어요',1],['한두 군데 고쳐 봤어요',2],['볼 때마다 고칠 점을 적어요',3]]},
+ {t:'지금 나의 상황은 어디에 가깝나요?',p:'who',o:[['쇼호스트 지망생이에요','new'],['라이브 방송(라방)을 준비하고 있어요','live'],['현직 쇼호스트예요 (1~5년 차)','junior'],['내 상품을 직접 파는 사장님이에요','owner']]},
+ {t:'언제부터 배우고 싶나요?',p:'when',o:[['12월에 바로 시작하고 싶어요','now'],['3개월 안에요','soon'],['아직 알아보는 중이에요','later']]}
+];
+let i=0, ans=[];
+const $=id=>document.getElementById(id);
+function show(s){['intro','quiz','result'].forEach(k=>$(k).hidden=k!==s);window.scrollTo(0,0)}
+function render(){
+  const q=Q[i];$('prog').style.width=(i/Q.length*100)+'%';
+  $('qn').textContent=(i+1)+' / '+Q.length;$('qt').textContent=q.t;
+  $('qsub').textContent=q.sub||'';$('qsub').hidden=!q.sub;
+  const o=$('opts');o.innerHTML='';
+  if(q.multi){
+    const picked=new Set(Array.isArray(ans[i])?ans[i]:[]);
+    const next=document.createElement('button');next.type='button';next.className='btn';next.textContent='다음';
+    const sync=()=>{[...o.querySelectorAll('.opt')].forEach((b,k)=>{b.classList.toggle('on',picked.has(k));b.setAttribute('aria-pressed',picked.has(k))});next.disabled=picked.size===0};
+    q.o.forEach(([label,val,flag],k)=>{const b=document.createElement('button');b.type='button';b.className='opt';b.textContent=label;
+      b.onclick=()=>{if(flag==='none'){picked.clear();picked.add(k)}else{q.o.forEach((x,j)=>{if(x[2]==='none')picked.delete(j)});picked.has(k)?picked.delete(k):picked.add(k)}sync()};o.appendChild(b)});
+    next.onclick=()=>{ans[i]=[...picked];i++;i<Q.length?render():finish()};
+    o.appendChild(next);sync();
+  }else{
+    q.o.forEach(([label,val])=>{const b=document.createElement('button');b.type='button';b.className='opt';b.textContent=label;
+      b.onclick=()=>{ans[i]=val;i++;i<Q.length?render():finish()};o.appendChild(b)});
+  }
+  $('back').hidden=i===0;
+}
+const FORM='https://docs.google.com/forms/d/e/1FAIpQLScKyP3X4Wx7tm9PwJajGFvw53HpLmA3C1_MWMN2nktqz13N0Q/viewform';
+function pts(q,n){if(!q.multi)return ans[n];const c=ans[n].reduce((t,k)=>t+q.o[k][1],0);return Math.min(3,Math.round(c*3/5))}
+function finish(){
+  const sum={},max={};Object.keys(AREAS).forEach(k=>{sum[k]=0;max[k]=0});
+  Q.forEach((q,n)=>{if(q.a){sum[q.a]+=pts(q,n);max[q.a]+=3}});
+  const pct=k=>Math.round(sum[k]/max[k]*100);
+  let tot=0,tm=0;Object.keys(AREAS).forEach(k=>{tot+=sum[k]/max[k];tm+=1});
+  const total=Math.round(tot/tm*100);
+  $('total').textContent=total;
+  const order=Object.keys(AREAS).sort((a,b)=>pct(a)-pct(b));
+  const weak=order.filter(k=>pct(k)<67).slice(0,3);const weakList=weak.length?weak:order.slice(0,2);
+  $('areas').innerHTML=Object.keys(AREAS).map(k=>`<div class="area${weakList.includes(k)?' weak':''}"><div class="top"><span>${AREAS[k]}</span><span>${pct(k)}점</span></div><div class="track"><i style="width:${pct(k)}%"></i></div></div>`).join('');
+  $('tips').innerHTML=weakList.map(k=>`<p class="tip"><b>${TIPS[k][0]}</b>${TIPS[k][1]}</p>`).join('');
+  const who=ans[8],when=ans[9];
+  let rec,why;
+  if(who==='junior'){rec='SHOW CLASS (전문가 과정)';why='현직 1~5년 차를 위한 과정입니다. 회사 방송 대신 재연 영상으로 수업하고, 수강 사실은 기본으로 비공개입니다.'}
+  else{rec='입문 12주';why=who==='owner'?'내 상품으로 「팔리는 말」을 만드는 기본기부터 시작합니다. 상담에서 사장님 상황에 맞춰 안내해 드립니다.':'한 반 4명, 집에서 화상으로 12주. 매 수업 류상 원장이 1:1로 봐 드립니다. 입문을 마치고 더 가고 싶으면 SHOW CLASS로 이어집니다.'}
+  if(when==='later')why+=' 아직 알아보는 중이라면 입과 역량 평가로 지금 위치부터 확인해 보세요.';
+  $('rec').textContent=rec;$('recwhy').textContent=why;
+  const scoreLine=`${total}점 / 약한 곳: ${weakList.map(k=>AREAS[k]).join(', ')}`;
+  $('msgtext').textContent=`· 진단 점수: ${scoreLine}\n· 추천 과정: ${rec}`;
+  const course=who==='junior'?'SHOW CLASS 전문가 과정 (입문 수료생·저연차 현직)':'입문 12주 (신입 지망생·라이브 방송 준비)';
+  const u=new URLSearchParams({usp:'pp_url','entry.2000083093':scoreLine,'entry.1614173018':course});
+  $('apply').href=FORM+'?'+u.toString();
+  show('result');
+}
+$('start').onclick=()=>{i=0;ans=[];show('quiz');render()};
+$('back').onclick=()=>{if(i>0){i--;render()}};
+$('again').onclick=()=>{show('intro')};
+</script>
+</body></html>
