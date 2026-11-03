@@ -12,7 +12,7 @@
 }
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15130f;--paper:#1e1b16;--ink:#f1ece3;--sub:#a99f90;--line:#36312a;--onair:#ff4a3a;--onair-ink:#160a08;color-scheme:dark}}
 :root[data-theme="dark"]{--bg:#15130f;--paper:#1e1b16;--ink:#f1ece3;--sub:#a99f90;--line:#36312a;--onair:#ff4a3a;--onair-ink:#160a08;color-scheme:dark}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.7;margin:0}
+body{word-break:keep-all;overflow-wrap:break-word;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.7;margin:0}
 .wrap{max-width:640px;margin:0 auto;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
 header.top{padding-block:16px;display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:13px;color:var(--sub);letter-spacing:.04em}
 .lamp{display:inline-flex;align-items:center;gap:7px;border:1.5px solid var(--onair);color:var(--onair);padding:3px 10px 3px 8px;border-radius:4px;font-weight:700;letter-spacing:.14em;font-size:12px}
@@ -61,13 +61,51 @@ summary:focus-visible{outline:2px solid var(--onair);outline-offset:3px}
 details p{margin:8px 0 0;color:var(--sub);font-size:15px}
 .refund{font-size:15px;color:var(--sub);margin:0}
 footer{padding-block:36px 48px;border-top:1px solid var(--line);font-size:13px;color:var(--sub);display:flex;flex-direction:column;gap:6px}
+.hero-side{display:none}
+.reels{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:-18px;padding:0 18px 8px;scrollbar-width:none}
+.reels::-webkit-scrollbar{display:none}
+.reel{flex:0 0 64%;max-width:250px;scroll-snap-align:start;display:flex;flex-direction:column;gap:6px;margin:0}
+.reel video{width:100%;aspect-ratio:9/16;border-radius:12px;background:#000;object-fit:cover;display:block}
+.reel b{font-size:15px;line-height:1.4}
+.reel span{font-size:13px;color:var(--sub)}
+.swipe{font-size:13px;color:var(--sub);margin:0}
+@media (min-width:900px){
+ body{font-size:17px}
+ .wrap{max-width:1120px;padding-inline:48px}
+ header.top{padding-block:22px}
+ .hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:56px;align-items:center;padding-block:56px 72px}
+ .hero-text{display:flex;flex-direction:column;gap:20px}
+ h1{font-size:60px}
+ .cta{flex-direction:row;align-items:center;flex-wrap:wrap}
+ .cta .btn{min-width:280px}
+ .hint{text-align:left}
+ .hero-side{display:block;position:relative}
+ .hero-side video{width:100%;max-width:340px;aspect-ratio:9/16;object-fit:cover;border-radius:18px;display:block;margin-left:auto;box-shadow:0 30px 60px -30px rgba(0,0,0,.45)}
+ .hero-side figcaption{position:absolute;left:0;bottom:24px;background:var(--paper);border:1px solid var(--line);border-radius:10px;padding:10px 14px;font-size:14px;max-width:220px}
+ .nums div{padding:28px 6px}
+ .nums b{font-size:38px}
+ .nums span{font-size:14px}
+ section{padding-block:72px;display:grid;grid-template-columns:260px minmax(0,1fr);column-gap:56px;row-gap:16px;align-items:start}
+ section{row-gap:0}
+ section>.k,section>h2{grid-column:1;grid-row:1/span 12;align-self:start}
+ section>h2{font-size:32px;margin-top:30px}
+ section>:not(.k):not(h2){grid-column:2;margin-bottom:18px}
+ .courses{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+ .reels{display:grid;grid-template-columns:repeat(3,1fr);overflow:visible;margin:0;padding:0}
+ .reel{max-width:none}
+ .swipe{display:none}
+ ol.cue{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;border-top:2px solid var(--ink)}
+ ol.cue li{grid-template-columns:1fr;border-bottom:0;padding-top:18px}
+ section.last{display:flex;flex-direction:row;justify-content:space-between;align-items:center;gap:32px}
+ section.last .btn{min-width:320px}
+}
 </style>
 </head><body>
 
 <div class="wrap">
   <header class="top"><span>류상 쇼호스트 아카데미</span><span class="lamp"><i></i>1기 모집</span></header>
 
-  <div class="hero">
+  <div class="hero"><div class="hero-text">
     <div class="eyebrow">28년 차 쇼호스트 류상 · 쇼호스트들의 선생님</div>
     <h1>쇼호스트를 가르치는 <em>쇼호스트</em></h1>
     <p class="lede">18년 동안 신입 쇼호스트를 가르치고 면접관으로 뽑아 온 류상이, 1기 모든 수업을 직접 맡습니다. 한 반 4명, 매 수업 원장 1:1 피드백.</p>
@@ -75,6 +113,8 @@ footer{padding-block:36px 48px;border-top:1px solid var(--line);font-size:13px;c
       <a class="btn main" href="https://showhost-quiz.ryusang73.workers.dev">1기 상담 신청</a>
       <p class="hint">먼저 나의 쇼호스트 적성을 알아본 뒤, 신청서로 이어져요.</p>
     </div>
+    </div>
+    <figure class="hero-side"><video src="/reels/h03.mp4" poster="/reels/h03.jpg" muted autoplay loop playsinline preload="metadata"></video><figcaption><b>실제 방송 장면</b><br>마감 4분, 결정을 미루는 고객에게</figcaption></figure>
   </div>
 
   <div class="nums">
@@ -86,7 +126,7 @@ footer{padding-block:36px 48px;border-top:1px solid var(--line);font-size:13px;c
   <section>
     <div class="k">COURSES</div>
     <h2>과정은 두 가지예요</h2>
-    <div class="course">
+    <div class="courses"><div class="course">
       <h3>입문 12주</h3>
       <dl>
         <dt>누구</dt><dd>신입 쇼호스트 지망생, 라이브 방송을 준비하는 분</dd>
@@ -101,7 +141,7 @@ footer{padding-block:36px 48px;border-top:1px solid var(--line);font-size:13px;c
         <dt>누구</dt><dd>입문을 마치고 더 가고 싶은 분, 저연차 현직 쇼호스트</dd>
         <dt>기간·수강료</dt><dd>입과 테스트 뒤 안내해 드려요</dd>
       </dl>
-    </div>
+    </div></div>
     <p class="common">두 과정 모두 집에서 화상 수업(구글 미트), 한 반 4명, 수업 전날 영상 과제, 1인 15분 피드백.</p>
     <p class="common"><b>입과 테스트</b> · 1분 자기소개와 3분 상품 PT 영상으로 입과 테스트를 해요. 한 반 4명 정원이라, 결과에 따라 이번 기수에는 함께하지 못할 수도 있어요.</p>
   </section>
@@ -114,6 +154,12 @@ footer{padding-block:36px 48px;border-top:1px solid var(--line);font-size:13px;c
       <li><b>매 수업 원장 1:1 피드백.</b> 한 반 4명이라 가능해요.</li>
       <li><b>수료 후 모바일 라이브 방송 오디션 기회.</b> 통과하면 CJ ENM, 현대홈쇼핑, 롯데홈쇼핑, 공영쇼핑 등 모바일 방송 출연 오디션 기회까지 이어 드려요.</li>
     </ul>
+  </section>
+
+  <section>
+    <div class="k">FREE CLASS</div>
+    <h2>맛보기 수업</h2>
+    <div><p class="swipe">옆으로 넘겨 보세요 →</p><div class="reels"><figure class="reel"><video src="/reels/h01.mp4" poster="/reels/h01.jpg" controls playsinline preload="none"></video><b>비싼 가격, 다른 방법과 비교해 주기</b><span>홈앤쇼핑 방송에서</span></figure><figure class="reel"><video src="/reels/h02.mp4" poster="/reels/h02.jpg" controls playsinline preload="none"></video><b>고객이 망설이며 물을 때</b><span>홈앤쇼핑 방송에서</span></figure><figure class="reel"><video src="/reels/h03.mp4" poster="/reels/h03.jpg" controls playsinline preload="none"></video><b>마감 4분, 결정을 미루는 고객에게</b><span>NS홈쇼핑 방송에서</span></figure></div></div>
   </section>
 
   <section>
@@ -139,7 +185,7 @@ footer{padding-block:36px 48px;border-top:1px solid var(--line);font-size:13px;c
     <p class="refund"><b>환불</b> · 개강 전에는 전액 돌려 드려요. 개강 뒤에는 남은 주 수만큼 계산한 금액에서 10%를 빼고 돌려 드려요.</p>
   </section>
 
-  <section>
+  <section class="last">
     <h2>1기는 4명씩, 원장이 직접 봅니다</h2>
     <div class="cta"><a class="btn main" href="https://showhost-quiz.ryusang73.workers.dev">1기 상담 신청</a></div>
   </section>
