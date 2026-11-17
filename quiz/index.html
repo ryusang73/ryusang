@@ -18,7 +18,9 @@
 @media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a1122;--card:#131c35;--ink:#eef1f8;--sub:#a8b2c8;--line:#26314f;--stage:#0d1830;--soft:#1a2545;color-scheme:dark}}
 :root[data-theme="dark"]{--bg:#0a1122;--card:#131c35;--ink:#eef1f8;--sub:#a8b2c8;--line:#26314f;--stage:#0d1830;--soft:#1a2545;color-scheme:dark}
 *{box-sizing:border-box}
-body{background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.6;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 32px}
+body{word-break:keep-all;overflow-wrap:break-word;background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.6;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 32px}
+.nb{white-space:nowrap}
+h1,.stage,.lead,.gets li,.steps li,.note,.msg,.q h2,.opt{word-break:keep-all;overflow-wrap:break-word}
 main{max-width:520px;margin:0 auto}
 .stage{background:var(--stage);color:var(--stage-ink);border-radius:18px;padding:28px 22px;position:relative;overflow:hidden}
 .stage::before{content:"";position:absolute;inset:-40% -20% auto;height:120%;background:radial-gradient(closest-side,rgba(255,204,0,.22),transparent);pointer-events:none}
@@ -93,7 +95,7 @@ h1 em{font-style:normal;color:var(--spot)}
 <section id="intro">
   <div class="stage">
     <div class="band">28년 차 쇼호스트 류상<small>쇼호스트들의 선생님</small></div>
-    <h1>쇼호스트, 준비는 하는데<br><em>왜 자꾸 떨어질까?</em></h1>
+    <h1>쇼호스트,<br>준비는 하는데<br><em>왜 자꾸 떨어질까?</em></h1>
     <p class="lead">면접관이 실제로 보는 5가지로 지금 내 준비를 3분 만에 점검해 보세요.</p>
     <ul class="gets">
       <li><b>1</b><span><strong>내 준비도 점수</strong> (100점)</span></li>
@@ -150,7 +152,7 @@ h1 em{font-style:normal;color:var(--spot)}
       <li><b>2</b><span>이름·연락처·메일 주소를 적고, 몇 가지만 고른 뒤 「제출」을 눌러 주세요. 1분이면 끝나요.</span></li>
       <li><b>3</b><span>3일 안에(휴일 제외) 메일로 영상 2개(1분 자기소개, 3분 미만 상품 소개) 보내는 법을 알려 드려요.</span></li>
     </ol>
-    <p class="note">궁금한 점은 <a class="handle" href="https://pf.kakao.com/_LxdPWX/chat" target="_blank" rel="noopener">카카오톡 채널 「류상쇼호스트아카데미」</a>로 물어봐 주세요.</p>
+    <p class="note">궁금한 점은 <a class="handle" href="https://pf.kakao.com/_LxdPWX/chat" target="_blank" rel="noopener">카카오톡 채널<br><span class="nb">「류상쇼호스트아카데미」</span></a>로 물어봐 주세요.</p>
   </div>
   <p class="cheer">합격은 끝까지 응원하고,<br>모바일 방송 출연 기회까지 한 번에!</p>
   <button class="back" id="again" type="button" style="display:block;margin:12px auto 0">처음부터 다시 하기</button>
