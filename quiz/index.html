@@ -100,7 +100,7 @@ h1 em{font-style:normal;color:var(--spot)}
     <ul class="gets">
       <li><b>1</b><span><strong>내 준비도 점수</strong> (100점)</span></li>
       <li><b>2</b><span>면접관이 보는 5가지 중 <strong>내가 약한 곳</strong>과 고치는 법</span></li>
-      <li><b>3</b><span><strong>나에게 맞는 과정</strong> 추천 (입문 12주 · SHOW CLASS)</span></li>
+      <li><b>3</b><span><strong>나에게 맞는 과정</strong> 추천 (정규반 · SHOW CLASS)</span></li>
     </ul>
     <button class="btn" id="start" type="button">3분 진단 시작</button>
   </div>
@@ -218,12 +218,12 @@ function finish(){
   const who=ans[8],when=ans[9];
   let rec,why;
   if(who==='junior'){rec='SHOW CLASS (전문가 과정)';why='현직 1~5년 차를 위한 과정입니다. 회사 방송 대신 재연 영상으로 수업하고, 수강 사실은 기본으로 비공개입니다.'}
-  else{rec='입문 12주';why=who==='owner'?'내 상품으로 「팔리는 말」을 만드는 기본기부터 시작합니다. 상담에서 사장님 상황에 맞춰 안내해 드립니다.':'한 반 4명, 집에서 화상으로 12주. 매 수업 류상 원장이 1:1로 봐 드립니다. 입문을 마치고 더 가고 싶으면 SHOW CLASS로 이어집니다.'}
+  else{rec='정규반';why=who==='owner'?'내 상품으로 「팔리는 말」을 만드는 기본기부터 시작합니다. 상담에서 사장님 상황에 맞춰 안내해 드립니다.':'한 반 4명, 집에서 화상으로 12주. 매 수업 류상 원장이 1:1로 봐 드립니다. 입문을 마치고 더 가고 싶으면 SHOW CLASS로 이어집니다.'}
   if(when==='later')why+=' 아직 알아보는 중이라면 입과 역량 평가로 지금 위치부터 확인해 보세요.';
   $('rec').textContent=rec;$('recwhy').textContent=why;
   const scoreLine=`${total}점 / 약한 곳: ${weakList.map(k=>AREAS[k]).join(', ')}`;
   $('msgtext').textContent=`· 진단 점수: ${scoreLine}\n· 추천 과정: ${rec}`;
-  const course=who==='junior'?'SHOW CLASS 전문가 과정 (입문 수료생·저연차 현직)':'입문 12주 (신입 지망생·라이브 방송 준비)';
+  const course=who==='junior'?'SHOW CLASS (방송 경험자·저연차 현직)':'정규반 (신입 지망생·라이브 방송 준비)';
   const u=new URLSearchParams({usp:'pp_url','entry.2000083093':scoreLine,'entry.1614173018':course});
   $('apply').href=FORM+'?'+u.toString();
   show('result');
