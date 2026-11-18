@@ -42,7 +42,7 @@ footer{padding:28px 0 90px;font-size:12.5px;color:#8b909c}footer span{display:bl
 .field{margin-left:-20px;margin-right:-20px}@media(min-width:900px){.field{margin-left:0;margin-right:0}}
 /* mic cursor: only mouse devices */
 #fx{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:9998}
-#mic{position:fixed;left:0;top:0;z-index:9999;pointer-events:none;width:34px;height:34px;margin:-17px 0 0 -17px;opacity:0;transition:opacity .2s,scale .15s;will-change:transform}
+#mic{position:fixed;left:0;top:0;z-index:9999;pointer-events:none;width:44px;height:44px;margin:-22px 0 0 -22px;opacity:0;transition:opacity .2s,scale .15s;will-change:transform}
 #mic.on{opacity:1}#mic.big{scale:1.45}
 @media (pointer:fine){html.mic *{cursor:none!important}}
 @media (pointer:coarse){#mic{display:none}}
@@ -91,19 +91,19 @@ footer{padding:28px 0 90px;font-size:12.5px;color:#8b909c}footer span{display:bl
 <footer><div class="w"><span>류상 쇼호스트 아카데미 · 류상의 설득 연구소</span><span>에스와이컴퍼니 · 대표 전서연 · 사업자등록번호 295-28-01727</span><span>서울특별시 영등포구 선유서로21길 14, 2층 201-B573호</span><span>문의 ryusang73@gmail.com</span><span><a href="/terms/" style="color:inherit">이용약관·환불 규정</a> · <a href="/privacy/" style="color:inherit"><b>개인정보처리방침</b></a></span></div></footer>
 <a class="kk" href="https://pf.kakao.com/_LxdPWX/chat" target="_blank" rel="noopener" aria-label="카카오톡 상담">카톡 상담</a>
 <canvas id="fx"></canvas>
-<svg id="mic" viewBox="0 0 34 34" aria-hidden="true"><g transform="rotate(-25 17 17)"><rect x="12" y="3" width="10" height="17" rx="5" fill="#fff" stroke="#14161b" stroke-width="1.6"/><path d="M12 8h10M12 12h10" stroke="#14161b" stroke-width="1" opacity=".55"/><path d="M8.5 15v1.5a8.5 8.5 0 0 0 17 0V15" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/><path d="M8.5 15v1.5a8.5 8.5 0 0 0 17 0V15" fill="none" stroke="#14161b" stroke-width=".7" stroke-linecap="round" opacity=".5"/><path d="M17 25v4M12.5 30h9" stroke="#fff" stroke-width="2.4" stroke-linecap="round"/></g></svg>
+<svg id="mic" viewBox="0 0 34 34" aria-hidden="true"><g transform="rotate(-25 17 17)"><path d="M8.5 15v1.5a8.5 8.5 0 0 0 17 0V15M17 25v4M12.5 30h9" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><rect x="12" y="3" width="10" height="17" rx="5" fill="#e8321f" stroke="#fff" stroke-width="2.6"/><path d="M12.6 8.5h8.8M12.6 12.5h8.8" stroke="#fff" stroke-width="1.2" opacity=".85"/><path d="M8.5 15v1.5a8.5 8.5 0 0 0 17 0V15" fill="none" stroke="#ffcc00" stroke-width="2.6" stroke-linecap="round"/><path d="M17 25v4M12.5 30h9" stroke="#ffcc00" stroke-width="2.6" stroke-linecap="round"/></g></svg>
 <script>(function(){ var fine=matchMedia('(pointer:fine)').matches, calm=matchMedia('(prefers-reduced-motion:reduce)').matches;
  var cv=document.getElementById('fx'),cx=cv.getContext('2d'),mic=document.getElementById('mic');
  var W,H,dpr=Math.min(devicePixelRatio||1,2);
  function size(){W=innerWidth;H=innerHeight;cv.width=W*dpr;cv.height=H*dpr;cx.setTransform(dpr,0,0,dpr,0,0)}size();addEventListener('resize',size);
  if(calm)return;
  var P=[],MAX=130,raf=0,last=0,lx=-1,ly=-1;
- var COL=['255,255,255','226,229,235','201,185,154','170,176,188','255,244,214'];
+ var COL=['255,204,0','255,204,0','255,92,60','232,50,31','255,255,255','255,176,0'];
  function spawn(x,y,n,burst){
   for(var i=0;i<n&&P.length<MAX;i++){
    var a=Math.random()*6.283,s=burst?(.6+Math.random()*2.2):(.15+Math.random()*.9);
    P.push({x:x+(Math.random()-.5)*8,y:y+(Math.random()-.5)*8,vx:Math.cos(a)*s,vy:Math.sin(a)*s-.1,
-    r:.7+Math.random()*1.9,t:0,life:600+Math.random()*700,c:COL[(Math.random()*COL.length)|0],tw:Math.random()*6.28});
+    r:1.1+Math.random()*2.4,t:0,life:600+Math.random()*700,c:COL[(Math.random()*COL.length)|0],tw:Math.random()*6.28});
   }
   if(!raf){last=performance.now();raf=requestAnimationFrame(tick)}
  }
@@ -113,7 +113,7 @@ footer{padding:28px 0 90px;font-size:12.5px;color:#8b909c}footer span{display:bl
    var p=P[i];p.t+=dt;if(p.t>=p.life){P.splice(i,1);continue}
    p.vy+=.0016*dt;p.vx*=.985;p.x+=p.vx*dt/16;p.y+=p.vy*dt/16;
    var k=1-p.t/p.life,tw=.65+.35*Math.sin(p.tw+p.t*.02);
-   cx.fillStyle='rgba('+p.c+','+(k*tw).toFixed(3)+')';cx.shadowColor='rgba(0,0,0,'+(k*.35).toFixed(2)+')';cx.shadowBlur=2;
+   cx.fillStyle='rgba('+p.c+','+(k*tw).toFixed(3)+')';cx.shadowColor='rgba(0,0,0,'+(k*.45).toFixed(2)+')';cx.shadowBlur=3;
    cx.beginPath();cx.arc(p.x,p.y,p.r*(.6+.4*k),0,6.283);cx.fill();
   }
   raf=P.length?requestAnimationFrame(tick):0;if(!raf)cx.clearRect(0,0,W,H);
