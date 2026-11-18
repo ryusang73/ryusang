@@ -4,234 +4,83 @@
 <meta property="og:type" content="website"><meta property="og:site_name" content="류상 쇼호스트 아카데미"><meta property="og:title" content="류상 쇼호스트 아카데미 | 쇼호스트를 가르치는 쇼호스트"><meta property="og:description" content="28년 차 쇼호스트 류상 원장이 직접 가르치는 온라인 쇼호스트 아카데미. 한 반 4명, 매 수업 1:1 피드백."><meta property="og:image" content="https://www.ryusanglab.com/img/ryusang.jpg"><link rel="canonical" href="https://www.ryusanglab.com/academy/">
 <title>류상 쇼호스트 아카데미</title>
 <meta name="naver-site-verification" content="6154dd81fb7c3ebfd5d9b124954e1d51715fd0fe" />
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@700;800&family=IBM+Plex+Sans+KR:wght@400;500;700&display=swap">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700;900&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
 <style>
-/* 방송 큐시트처럼 위에서 아래로 흐르는 한 줄 구성. 빨간 ON AIR 등 하나만 강조색 */
-:root{
- --bg:#f4f6fa;--paper:#ffffff;--ink:#121c36;--sub:#5b647d;--line:#dde2ec;--onair:#142448;--onair-ink:#ffffff;--navy:#142448;--hl:#ffcc00;
- --display:'Nanum Myeongjo','AppleMyungjo',serif;--body:'IBM Plex Sans KR','Apple SD Gothic Neo','Noto Sans KR',sans-serif;
-}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0d1324;--paper:#151e36;--ink:#eef1f8;--sub:#9aa5c4;--line:#26314f;--onair:#ffcc00;--onair-ink:#121c36;--navy:#0a1020;color-scheme:dark}}
-:root[data-theme="dark"]{--bg:#0d1324;--paper:#151e36;--ink:#eef1f8;--sub:#9aa5c4;--line:#26314f;--onair:#ffcc00;--onair-ink:#121c36;--navy:#0a1020;color-scheme:dark}
-body{word-break:keep-all;overflow-wrap:break-word;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16.5px;line-height:1.7;margin:0}
-.wrap{max-width:640px;margin:0 auto;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
-header.top{padding-block:16px;display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:13px;color:var(--sub);letter-spacing:.04em}
-.lamp{display:inline-flex;align-items:center;gap:7px;border:1.5px solid var(--onair);color:var(--onair);padding:3px 10px 3px 8px;border-radius:4px;font-weight:700;letter-spacing:.14em;font-size:12px}
-.lamp i{width:8px;height:8px;border-radius:50%;background:var(--onair);box-shadow:0 0 0 3px color-mix(in srgb,var(--onair) 25%,transparent);animation:blink 1.6s ease-in-out infinite}
-@keyframes blink{50%{opacity:.35}}
-@media (prefers-reduced-motion:reduce){.lamp i{animation:none}}
-.hero{padding-block:36px 40px;display:flex;flex-direction:column;gap:18px}
-.eyebrow{font-size:14px;color:var(--sub);letter-spacing:.06em}
-h1{font-family:var(--display);font-weight:800;font-size:clamp(34px,9vw,52px);line-height:1.22;margin:0;text-wrap:balance;letter-spacing:-.01em}
-h1 em{font-style:normal;color:var(--onair)}
-.lede{margin:0;color:var(--sub);max-width:34em}
-.cta{display:flex;flex-direction:column;gap:10px;margin-top:6px}
-.btn{display:block;text-align:center;padding:16px 18px;border-radius:10px;font-weight:700;font-size:17px;text-decoration:none}
-.btn.main{background:var(--onair);color:var(--onair-ink)}
-.btn.ghost{border:1.5px solid var(--ink);color:var(--ink)}
-.hint{margin:0;font-size:13.5px;color:var(--sub);text-align:center}
-.btn:focus-visible{outline:3px solid var(--onair);outline-offset:3px}
-.nums{display:grid;grid-template-columns:repeat(3,1fr);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
-.nums div{padding:18px 6px;text-align:center;display:flex;flex-direction:column;gap:2px}
-.nums div+div{border-left:1px solid var(--line)}
-.nums b{font-family:var(--display);font-size:clamp(22px,6vw,30px);font-variant-numeric:tabular-nums}
-.nums span{font-size:12.5px;color:var(--sub)}
-section{padding-block:40px;display:flex;flex-direction:column;gap:16px}
-h2{font-family:var(--display);font-size:26px;margin:0;text-wrap:balance}
-.k{font-size:12px;letter-spacing:.16em;color:var(--onair);font-weight:700}
-.course{background:var(--paper);border:1px solid var(--line);border-radius:12px;padding:20px;display:flex;flex-direction:column;gap:10px}
-.course h3{margin:0;font-size:19px}
-.course dl{margin:0;display:grid;grid-template-columns:6.8em 1fr;gap:6px 10px;font-size:15px}
-.course dt{color:var(--sub)}
-.course dd{margin:0;min-width:0}
-.price s{color:var(--sub);margin-right:6px}
-.price b{color:var(--onair)}
-.soon{display:inline-block;font-size:12px;border:1px solid var(--line);border-radius:999px;padding:1px 9px;color:var(--sub)}
-.common{font-size:14.5px;color:var(--sub);margin:0}
-ol.cue{list-style:none;margin:0;padding:0;border-top:2px solid var(--ink)}
-ol.cue li{display:grid;grid-template-columns:3.2em 1fr;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
-ol.cue .t{font-family:var(--display);font-weight:800;font-size:18px;color:var(--onair);font-variant-numeric:tabular-nums}
-ol.cue b{display:block}
-ol.cue p{margin:2px 0 0;font-size:14.5px;color:var(--sub)}
-ul.only{margin:0;padding:0;list-style:none;display:flex;flex-direction:column;gap:12px}
-ul.only li{padding-left:18px;position:relative}
-ul.only li::before{content:"";position:absolute;left:0;top:.72em;width:8px;height:8px;background:var(--onair);border-radius:2px}
-details{border-bottom:1px solid var(--line);padding-block:12px}
-summary{cursor:pointer;font-weight:700}
-summary:focus-visible{outline:2px solid var(--onair);outline-offset:3px}
-details p{margin:8px 0 0;color:var(--sub);font-size:15px}
-.refund{font-size:15px;color:var(--sub);margin:0}
-footer{padding-block:36px 48px;border-top:1px solid var(--line);font-size:13px;color:var(--sub);display:flex;flex-direction:column;gap:6px}
-.hero-side{display:flex;align-items:center;gap:14px;order:-1;margin:0}
-.hero-side img{width:76px;height:76px;border-radius:50%;object-fit:cover;object-position:50% 20%;display:block;border:2px solid var(--hl);flex:none}
-.hero-side figcaption{font-size:14px;line-height:1.5;color:#c3cbe0}
-.hero-side figcaption b{color:#fff;font-size:16px}
-.reels{display:flex;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin-inline:-20px;padding:0 20px 8px;scroll-padding-inline:20px;scrollbar-width:none}
-.reels::-webkit-scrollbar{display:none}
-.reel{flex:0 0 64%;max-width:250px;scroll-snap-align:start;display:flex;flex-direction:column;gap:6px;margin:0}
-.reel video{width:100%;aspect-ratio:9/16;border-radius:12px;background:#000;object-fit:cover;display:block}
-.reel b{font-size:15px;line-height:1.4}
-.reel span{font-size:13px;color:var(--sub)}
-.insta{display:block;margin-top:14px;text-align:center;padding:12px;border:1.5px solid var(--navy);border-radius:12px;color:var(--navy);font-weight:700;text-decoration:none}
-.swipe{font-size:13px;color:var(--sub);margin:0}
-@media (min-width:900px){
- body{font-size:17px}
- .wrap{max-width:1120px;padding-inline:48px}
- header.top{padding-block:22px}
- .hero{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,.75fr);gap:56px;align-items:center;padding-block:56px 72px}
- .hero-text{display:flex;flex-direction:column;gap:20px}
- h1{font-size:60px}
- .cta{flex-direction:row;align-items:center;flex-wrap:wrap}
- .cta .btn{min-width:280px}
- .hint{text-align:left}
- .hero-side{display:block;position:relative}
- .hero-side{order:0;display:block;position:relative}
- .hero-side img{width:100%;max-width:330px;height:auto;aspect-ratio:4/5;object-position:50% 25%;border-radius:18px;border:0;margin-left:auto;box-shadow:0 30px 60px -30px rgba(0,0,0,.6)}
- .hero-side figcaption{position:absolute;left:0;bottom:24px;background:#fff;color:#121c36;border-radius:10px;padding:10px 14px}
- .hero-side figcaption b{color:#121c36}
- .nums div{padding:28px 6px}
- .nums b{font-size:38px}
- .nums span{font-size:14px}
- section{padding-block:72px;display:grid;grid-template-columns:260px minmax(0,1fr);column-gap:56px;row-gap:16px;align-items:start}
- section{row-gap:0}
- section>.k,section>h2{grid-column:1;grid-row:1/span 12;align-self:start}
- section>h2{font-size:32px;margin-top:30px}
- section>:not(.k):not(h2){grid-column:2;margin-bottom:18px}
- .courses{display:grid;grid-template-columns:1fr 1fr;gap:16px}
- .reels{display:grid;grid-template-columns:repeat(3,1fr);overflow:visible;margin:0;padding:0}
- .reel{max-width:none}
- .swipe{display:none}
- ol.cue{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;border-top:2px solid var(--ink)}
- ol.cue li{grid-template-columns:1fr;border-bottom:0;padding-top:18px}
- section.last{display:flex;flex-direction:row;justify-content:space-between;align-items:center;gap:32px}
- section.last .btn{min-width:320px}
-}
-/* 남색 첫 화면 — 아카데미 인스타와 같은 남색 #142448 + 노랑 #FFCC00 */
-.hero{background:var(--navy);color:#fff;box-shadow:0 0 0 100vmax var(--navy);clip-path:inset(0 -100vmax)}
-.hero .eyebrow,.hero .lede,.hero .hint{color:#c3cbe0}
-.hero h1 em{color:var(--hl)}
-.hero .btn.main{background:var(--hl);color:#121c36}
-.lamp i{background:#e0392b;box-shadow:0 0 0 3px rgba(224,57,43,.25)}
-ul.only li::before{background:var(--hl)}
-header.top{margin-bottom:0}
-/* 섹션마다 흰 상자, 류상만의 특징은 남색 카드 + 노란 배지 */
-main.box,section{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:28px 20px;margin-block:18px;box-shadow:0 1px 0 rgba(20,36,72,.04),0 12px 28px -22px rgba(20,36,72,.35)}
-section>.k{display:inline-block;align-self:flex-start;background:var(--navy);color:#fff;padding:3px 10px;border-radius:6px;letter-spacing:.12em}
-section.last{background:var(--navy);color:#fff;border-color:var(--navy)}
-section.last .btn.main{background:var(--hl);color:#121c36}
-section.only-sec{background:linear-gradient(180deg,#eef2fb,var(--paper));border:2px solid var(--navy)}
-.feat{display:grid;gap:12px}
-.feat .f{position:relative;background:var(--navy);color:#fff;border-radius:14px;padding:18px 18px 18px;display:flex;flex-direction:column;gap:6px}
-.feat .f b{font-size:18px;line-height:1.35}
-.feat .f p{margin:0;color:#c3cbe0;font-size:14.5px;line-height:1.6}
-.feat .f a{color:var(--hl);font-weight:700;font-size:14.5px;text-decoration:none;margin-top:4px}
-.badge{align-self:flex-start;background:var(--hl);color:#121c36;font-size:11.5px;font-weight:800;letter-spacing:.06em;padding:3px 9px;border-radius:999px}
-.tagai{display:inline-block;background:var(--hl);color:#121c36;font-size:11.5px;font-weight:800;border-radius:999px;padding:1px 8px;margin-left:6px;vertical-align:2px}
-@media (min-width:900px){section{padding:44px 44px}section>.k{justify-self:start}.feat{grid-template-columns:1fr 1fr;gap:16px}.feat .f{padding:24px}}
-.kakao{position:fixed;right:16px;bottom:16px;z-index:50;display:flex;align-items:center;gap:6px;background:#FEE500;color:#191919;font-weight:700;font-size:15px;padding:12px 16px;border-radius:999px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.18)}
+:root{--ink:#14161b;--ink2:#1c1f26;--paper:#f3efe8;--red:#d8362b;--sand:#c9b99a;--mute:#b9bcc4;--serif:'Noto Serif KR',serif;--sans:'Noto Sans KR',sans-serif;color-scheme:dark}
+*{box-sizing:border-box;margin:0}body{background:var(--ink);color:#fff;font-family:var(--sans);font-size:16px;line-height:1.65;word-break:keep-all}
+.w{max-width:1080px;margin:0 auto;padding:0 20px}img{max-width:100%;display:block}
+.top{display:flex;justify-content:space-between;align-items:center;padding:16px 0;font-size:13px}
+.lamp{display:inline-flex;align-items:center;gap:8px;background:var(--red);font-weight:700;font-size:12.5px;letter-spacing:.08em;padding:5px 10px;border-radius:3px}.lamp i{width:8px;height:8px;border-radius:50%;background:#fff}
+.hero{display:grid;gap:20px;padding-bottom:40px}
+.hero .ph img{width:100%;aspect-ratio:4/5;object-fit:cover;object-position:50% 8%;border-radius:2px}
+h1{font-family:var(--serif);font-weight:900;font-size:38px;line-height:1.25;letter-spacing:-.02em}
+.sub{margin-top:12px;color:#dfe1e6;font-size:15.5px;line-height:1.7}.proof{font-weight:700;color:#fff}
+.btn{display:block;margin-top:18px;background:var(--red);color:#fff;text-align:center;font-weight:700;font-size:17px;padding:16px;border-radius:4px;text-decoration:none}
+.alt{display:block;margin-top:14px;text-align:center;color:#fff;font-size:16px;text-decoration:underline;text-underline-offset:4px}
+h2{font-family:var(--serif);font-weight:900;font-size:27px;line-height:1.3}
+section{padding:56px 0 44px}.light{background:var(--paper);color:var(--ink)}
+.field{display:grid;gap:10px;margin-top:20px}.field figure{position:relative;overflow:hidden}.field img{width:100%;height:100%;object-fit:cover}
+.field figcaption{position:absolute;left:0;bottom:0;right:0;padding:26px 12px 10px;background:linear-gradient(transparent,#000c);font-size:13px;color:#fff}
+.field .a{aspect-ratio:16/9}.field .b,.field .c{aspect-ratio:16/10}
+.cap{margin-top:14px;color:var(--mute);font-size:14.5px}
+.sch{margin-top:18px;border-top:2px solid var(--ink)}.sch .r{display:grid;grid-template-columns:1fr;gap:4px 12px;padding:16px 0;border-bottom:1px solid #d8d1c3}
+.sch .tm{font-family:var(--serif);font-weight:900;color:var(--red);font-size:15px;line-height:1.5}.sch b{display:block;font-size:18px;font-family:var(--serif)}.sch p{font-size:14.5px;color:#4a4f5a}.sch .tg{display:inline-block;font-size:12px;font-weight:700;color:var(--red);border:1px solid var(--red);padding:0 6px;margin-left:6px;border-radius:3px;vertical-align:2px;font-family:var(--sans)}
+.note{margin-top:16px;color:#4a4f5a;font-size:14.5px}
+.q{display:grid;grid-template-columns:4.6em 1fr;gap:12px;padding:16px 0;border-bottom:1px solid #2c303a}.q .tc{font-family:var(--serif);font-weight:900;color:var(--sand);font-size:15px;padding-top:2px}.q b{display:block;font-size:17.5px}.q p{font-size:14.5px;color:var(--mute)}.q a{display:inline-block;margin-top:6px;color:#fff;font-weight:700;font-size:15px}
+.reels{display:flex;gap:14px;overflow-x:auto;padding:18px 0 8px}.reel{flex:0 0 190px}.reel video,.reel img{width:100%;aspect-ratio:9/16;object-fit:cover}.reel b{display:block;font-size:14.5px;margin-top:8px;line-height:1.4}.reel span{font-size:12.5px;color:var(--mute)}
+.insta{display:inline-block;margin-top:10px;color:#fff;text-decoration:underline;text-underline-offset:4px;font-size:15px}
+details{border-bottom:1px solid #d8d1c3;padding:16px 0}summary{cursor:pointer;font-weight:700;font-size:16.5px;list-style:none;display:flex;justify-content:space-between}summary::after{content:"+";color:var(--red);font-size:22px;line-height:1}details[open] summary::after{content:"−"}details p{margin-top:8px;font-size:14.5px;color:#4a4f5a}
+.last{text-align:center;background:var(--ink2)}.last .btn{max-width:360px;margin:20px auto 0}
+footer{padding:28px 0 90px;font-size:12.5px;color:#8b909c}footer span{display:block}
+::selection{background:var(--red);color:#fff}a:focus-visible,summary:focus-visible{outline:3px solid var(--sand);outline-offset:3px}
+.kk{position:fixed;right:14px;bottom:14px;background:#FEE500;color:#191919;font-weight:700;padding:11px 15px;border-radius:999px;min-height:44px;display:flex;align-items:center;text-decoration:none;opacity:0;pointer-events:none;transition:opacity .25s}.kk.show{opacity:1;pointer-events:auto}
+@media(min-width:900px){.hero{grid-template-columns:1.15fr .85fr;gap:20px 64px;align-items:center;padding-bottom:70px}.top{grid-column:1/-1}.hero .copy{grid-column:1;grid-row:2}.hero .ph{grid-column:2;grid-row:2}h1{font-size:60px}.sub{font-size:18px}h2{font-size:36px}.btn{max-width:420px}.alt{text-align:left}.field{grid-template-columns:1.6fr 1fr;grid-template-rows:1fr 1fr}.field .a{grid-row:1/3;aspect-ratio:auto;min-height:440px}.field .b,.field .c{aspect-ratio:auto}.sch .r{grid-template-columns:9em 1fr 1.2fr;align-items:baseline}.q{max-width:760px}}
+.aid{background:#0e1014;overflow:hidden}.ag{display:grid;gap:30px}.al{list-style:none;padding:0;margin:16px 0 0;display:grid;gap:8px;font-size:15px;color:#dfe1e6}.al b{color:var(--sand);margin-right:8px}
+.pv{position:relative;display:flex;gap:12px;justify-content:center;align-items:flex-start;padding-bottom:26px}.pv img{width:46%;max-width:240px;border-radius:22px;border:6px solid #2a2e38;box-shadow:0 20px 40px #000a}.pv .p2{margin-top:36px}.cp{position:absolute;bottom:0;left:0;right:0;text-align:center;font-size:12.5px;color:var(--mute)}
+@media(min-width:900px){.ag{grid-template-columns:1fr 1fr;align-items:center;gap:64px}.pv img{width:44%;max-width:300px}}
+.field{margin-left:-20px;margin-right:-20px}@media(min-width:900px){.field{margin-left:0;margin-right:0}}
 </style>
+</head><body>
+<header class="w hero"><div class="top"><span>류상 쇼호스트 아카데미</span><span class="lamp"><i></i>개강일 곧 안내</span></div>
+<div class="ph"><img src="/img/v2/hero_ryusang.jpg" alt="류상 원장"></div>
+<div class="copy"><h1>쇼호스트를<br>가르치는 쇼호스트</h1>
+<p class="sub">18년 동안 신입 쇼호스트를 가르치고 면접관으로 뽑아 왔습니다. 모든 수업을 직접 맡고, 매 수업 1:1 피드백을 드립니다.</p>
+<p class="sub proof">28년 차. 누적 매출 4조 8천억 원, 에어컨 9,880대를 방송에서 팔았습니다.</p>
+<a class="btn" href="/quiz/">수강 상담 신청</a><a class="alt" href="https://pf.kakao.com/_LxdPWX/chat" target="_blank" rel="noopener">카톡으로 바로 문의하기</a></div></header>
+<section style="padding-top:0"><div class="w"><h2>화면 속 방송 현장에서 가르칩니다</h2>
+<div class="field"><figure class="a"><img src="/img/v2/field_studio.jpg" alt="홈쇼핑 스튜디오에서 방송 중인 류상"><figcaption>홈쇼핑 스튜디오, 생방송 중</figcaption></figure>
+<figure class="b"><img src="/img/v2/field_live.jpg" alt="생방송 중인 류상"><figcaption>생방송 화면</figcaption></figure>
+<figure class="c"><img src="/img/v2/field_control.jpg" alt="방송 송출실 모니터"><figcaption>송출실 모니터 속 방송</figcaption></figure></div>
+<p class="cap">방송 화면은 류상이 실제로 출연한 홈쇼핑 생방송에서 가져왔어요.</p></div></section>
+<section style="padding-top:0"><div class="w"><h2>해외에서도, 방송국에서도 가르쳐 왔습니다</h2>
+<div class="field f2"><figure class="a"><img src="/img/v2/world_class.jpg" alt="해외 교육 현장, 강의실" style="object-position:50% 60%"><figcaption>해외 교육 현장</figcaption></figure>
+<figure class="b"><img src="/img/v2/world_studio.jpg" alt="방송 스튜디오에서 진행한 교육"><figcaption>스튜디오 교육 현장</figcaption></figure>
+<figure class="c"><img src="/img/v2/world_edu.jpg" alt="현지 교육 현장"><figcaption>교육 현장</figcaption></figure></div>
+<p class="cap">현장 사진은 류상이 직접 가르친 교육에서 찍은 것입니다. 8개국에서 쇼호스트를 교육했어요.</p></div></section><section class="aid"><div class="w ag"><div class="at"><h2>18년 면접관의 채점표로<br>AI가 먼저 재 드립니다</h2>
+<p class="sub">1분 자기소개 영상을 올리면 류상의 채점표로 AI가 칸별 점수를 매겨요. 어디가 아까운지 한 칸으로 짚어 드려요. 수업에서는 원장이 직접 판정까지 합니다.</p>
+<ul class="al"><li><b>칸별 점수</b> 첫 인사, 나만의 이야기, 마지막 한 줄, 자신감·활기</li><li><b>가장 아까운 한 칸</b> 여기만 고치면 인상이 크게 바뀌는 곳</li><li><b>지난번과 비교</b> 변화를 점수로 확인</li></ul>
+<a class="btn" style="max-width:320px" href="/quiz/">적성부터 알아보기</a></div>
+<div class="pv"><img class="p1" src="/img/v2/aidos_total.jpg" alt="AIDOS 결과 화면 예시, 총점"><img class="p2" src="/img/v2/aidos_items.jpg" alt="AIDOS 결과 화면 예시, 칸별 점수"><p class="cp">화면은 예시이고, 점수는 영상마다 달라요.</p></div></div></section><section class="light"><div class="w"><h2>수업 편성표</h2><div class="sch">
+<div class="r"><div class="tm">입문 12주</div><div><b>입문 <span class="tg">AI 진단 포함</span></b><p>신입 쇼호스트 지망생, 라이브 방송을 준비하는 분</p></div><p>12주, 주 1회 90분 · 수강료는 입과 역량 평가 뒤 안내 · 개강 곧 안내</p></div>
+<div class="r"><div class="tm">SHOW CLASS</div><div><b>전문가 과정 <span class="tg">곧 안내</span></b><p>입문을 마치고 더 가고 싶은 분, 저연차 현직 쇼호스트</p></div><p>기간·수강료는 입과 역량 평가 뒤 안내해 드려요</p></div></div>
+<p class="note">두 과정 모두 집에서 화상 수업(구글 미트), 한 반 4명, 수업 전날 영상 과제, 1인 15분 피드백.</p></div></section>
+<section><div class="w"><h2>그 밖에 아카데미에만 있는 것</h2><div style="margin-top:14px"><div class="q"><span class="tc">02:00</span><div><b>쇼호스트 적성 진단 퀴즈</b><p>신청 전에 나의 쇼호스트 적성을 먼저 알아봐요. 결과를 보고 상담으로 이어져요.</p><a href="/quiz/">지금 해 보기 →</a></div></div><div class="q"><span class="tc">03:00</span><div><b>매 수업 원장 1:1 피드백</b><p>한 반 4명이라 가능해요. 28년 차 원장이 모든 수업을 직접 맡아요.</p></div></div><div class="q"><span class="tc">04:00</span><div><b>홈쇼핑 모바일 방송 오디션 기회</b><p>수료 후 모바일 라이브 방송 오디션, 통과하면 모바일 방송 출연 오디션 기회까지.</p></div></div></div></div></section>
+<section class="light"><div class="w"><h2>맛보기 수업</h2><div class="reels"><figure class="reel"><video src="/reels/h01.mp4" poster="/reels/h01.jpg" controls playsinline preload="none"></video><b>비싼 가격, 다른 방법과 비교해 주기</b><span>홈앤쇼핑 방송에서</span></figure><figure class="reel"><video src="/reels/h02.mp4" poster="/reels/h02.jpg" controls playsinline preload="none"></video><b>고객이 망설이며 물을 때</b><span>홈앤쇼핑 방송에서</span></figure><figure class="reel"><video src="/reels/h03.mp4" poster="/reels/h03.jpg" controls playsinline preload="none"></video><b>마감 4분, 결정을 미루는 고객에게</b><span>NS홈쇼핑 방송에서</span></figure><figure class="reel"><video src="/reels/h04.mp4" poster="/reels/h04.jpg" controls playsinline preload="none"></video><b>합격은 첫 3초에 갈립니다</b><span>쇼호스트 지망생 팁</span></figure><figure class="reel"><video src="/reels/h05.mp4" poster="/reels/h05.jpg" controls playsinline preload="none"></video><b>심사위원이 보는 건 딱 하나</b><span>쇼호스트 지망생 팁</span></figure><figure class="reel"><video src="/reels/h06.mp4" poster="/reels/h06.jpg" controls playsinline preload="none"></video><b>자기소개 외우면 티 납니다</b><span>쇼호스트 지망생 팁</span></figure></div><a class="insta" style="color:#14161b" href="https://www.instagram.com/ryusang_academy/" target="_blank" rel="noopener">인스타그램에서 더 보기 · @ryusang_academy →</a></div></section>
+<section><div class="w"><h2>신청부터 개강까지</h2><div style="margin-top:14px">
+<div class="q"><span class="tc">STEP 1</span><div><b>적성 진단과 상담 신청</b><p>나의 쇼호스트 적성을 먼저 알아보고 신청서를 남겨 주세요.</p></div></div>
+<div class="q"><span class="tc">STEP 2</span><div><b>입과 역량 평가</b><p>1분 자기소개와 3분 상품 PT 영상으로 평가해요.</p></div></div>
+<div class="q"><span class="tc">STEP 3</span><div><b>선발 안내와 결제</b><p>카드 또는 계좌이체.</p></div></div>
+<div class="q"><span class="tc">STEP 4</span><div><b>개강</b><p>개강일은 곧 안내해 드려요.</p></div></div></div></div></section>
+<section class="light"><div class="w"><h2>자주 묻는 질문</h2>
+<details><summary>경력이 없어도 따라갈 수 있나요?</summary><p>입문 12주는 처음 하는 분을 위한 과정이에요. 한 반 4명이라 매 수업 원장이 1:1로 봅니다.</p></details>
+<details><summary>화상 수업으로 정말 늘까요?</summary><p>쇼호스트 일 자체가 카메라 앞에서 말하는 일이에요. 매주 영상 과제를 AI 진단과 원장 판정으로 보고, 변화를 점수로 확인해요.</p></details>
+<details><summary>직장을 다니는데 시간이 될까요?</summary><p>주 1회 저녁 8시 90분, 집에서 들어요. 원장 생방송과 겹치면 3일 전에 알리고 같은 주에 보강해요.</p></details>
+<details><summary>새로 연 아카데미라 검증이 안 된 것 아닌가요?</summary><p>18년 동안 신입 쇼호스트를 가르치고 면접관으로 뽑아 온 원장이 모든 수업을 직접 맡습니다.</p></details></div></section>
+<section class="last"><div class="w"><h2>한 반 4명, 원장이 직접 봅니다</h2><a class="btn" href="/quiz/">수강 상담 신청</a></div></section>
+<footer><div class="w"><span>류상 쇼호스트 아카데미 · 류상의 설득 연구소</span><span>에스와이컴퍼니 · 대표 전서연 · 사업자등록번호 295-28-01727</span><span>서울특별시 영등포구 선유서로21길 14, 2층 201-B573호</span><span>문의 ryusang73@gmail.com</span><span><a href="/terms/" style="color:inherit">이용약관·환불 규정</a> · <a href="/privacy/" style="color:inherit"><b>개인정보처리방침</b></a></span></div></footer>
+<a class="kk" href="https://pf.kakao.com/_LxdPWX/chat" target="_blank" rel="noopener" aria-label="카카오톡 상담">카톡 상담</a>
+<script>var k=document.querySelector('.kk'),h=document.querySelector('.hero');if('IntersectionObserver' in window)new IntersectionObserver(function(e){k.classList.toggle('show',!e[0].isIntersecting)}).observe(h);else k.classList.add('show')</script>
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments)};</script>
 <script defer src="/_vercel/insights/script.js"></script>
-<link rel="icon" href="/favicon.ico" sizes="any"><link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png"><link rel="apple-touch-icon" href="/apple-touch-icon.png">
-</head><body>
-
-<div class="wrap">
-  <header class="top"><span>류상 쇼호스트 아카데미</span><span class="lamp"><i></i>개강일 곧 안내</span></header>
-
-  <div class="hero"><div class="hero-text">
-    <div class="eyebrow">28년 차 쇼호스트 류상 · 쇼호스트들의 선생님</div>
-    <h1>쇼호스트를 가르치는 <em>쇼호스트</em></h1>
-    <p class="lede">18년 동안 신입 쇼호스트를 가르치고 면접관으로 뽑아 온 류상이 모든 수업을 직접 맡습니다. 한 반 4명, 매 수업 원장 1:1 피드백.</p>
-    <div class="cta">
-      <a class="btn main" href="/quiz/">수강 상담 신청</a>
-      <p class="hint">먼저 나의 쇼호스트 적성을 알아본 뒤, 신청서로 이어져요.</p>
-    </div>
-    </div>
-    <figure class="hero-side"><img src="/img/ryusang.jpg" alt="류상 원장" width="800" height="1200"><figcaption><b>류상 원장</b><br>28년 차 쇼호스트 · 누적 매출 4조 8천억</figcaption></figure>
-  </div>
-
-  <div class="nums">
-    <div><b>4조 8천억</b><span>누적 매출</span></div>
-    <div><b>9,880대</b><span>에어컨 판매</span></div>
-    <div><b>8개국</b><span>쇼호스트 교육</span></div>
-  </div>
-
-  <section>
-    <div class="k">COURSES</div>
-    <h2>과정은 두 가지예요</h2>
-    <div class="courses"><div class="course">
-      <h3>입문 12주 <span class="tagai">AI 진단 포함</span></h3>
-      <dl>
-        <dt>누구</dt><dd>신입 쇼호스트 지망생, 라이브 방송을 준비하는 분</dd>
-        <dt>기간</dt><dd>12주, 주 1회 90분</dd>
-        <dt>수강료</dt><dd>입과 역량 평가 뒤 안내해 드려요</dd>
-        <dt>개강</dt><dd>곧 안내해 드려요</dd>
-      </dl>
-    </div>
-    <div class="course">
-      <h3>SHOW CLASS <span class="soon">전문가 과정 · 곧 안내</span></h3>
-      <dl>
-        <dt>누구</dt><dd>입문을 마치고 더 가고 싶은 분, 저연차 현직 쇼호스트</dd>
-        <dt>기간·수강료</dt><dd>입과 역량 평가 뒤 안내해 드려요</dd>
-      </dl>
-    </div></div>
-    <p class="common">두 과정 모두 집에서 화상 수업(구글 미트), 한 반 4명, 수업 전날 영상 과제, 1인 15분 피드백.</p>
-    <p class="common"><b>입과 역량 평가</b> · 1분 자기소개와 3분 상품 PT 영상으로 입과 역량 평가를 해요. 한 반 4명 정원이라, 결과에 따라 이번 기수에는 함께하지 못할 수도 있어요.</p>
-  </section>
-
-  <section class="only-sec">
-    <div class="k">ONLY HERE</div>
-    <h2>류상 쇼호스트 아카데미에만 있는 것</h2>
-    <div class="feat">
-      <div class="f"><span class="badge">ONLY 류상</span><b>설득화법 AI 진단</b><p>28년 차 쇼호스트가 직접 만든 기준으로 AI가 먼저 재고, 류상 원장이 직접 판정해요. 혼자 연습할 때도 써요.</p></div>
-      <div class="f"><span class="badge">ONLY 류상</span><b>쇼호스트 적성 진단 퀴즈</b><p>신청 전에 나의 쇼호스트 적성을 먼저 알아봐요. 결과를 보고 상담으로 이어져요.</p><a href="/quiz/">지금 해 보기 →</a></div>
-      <div class="f"><span class="badge">ONLY 류상</span><b>매 수업 원장 1:1 피드백</b><p>한 반 4명이라 가능해요. 28년 차 원장이 모든 수업을 직접 맡아요.</p></div>
-      <div class="f"><span class="badge">ONLY 류상</span><b>홈쇼핑 모바일 방송 오디션 기회</b><p>수료 후 모바일 라이브 방송 오디션, 통과하면 CJ ENM·현대홈쇼핑·롯데홈쇼핑·공영쇼핑 등 모바일 방송 출연 오디션 기회까지.</p></div>
-    </div>
-  </section>
-
-  <section>
-    <div class="k">SAMPLE CLASS</div>
-    <h2>맛보기 수업</h2>
-    <div><p class="swipe">옆으로 넘겨 보세요 →</p><div class="reels"><figure class="reel"><video src="/reels/h01.mp4" poster="/reels/h01.jpg" controls playsinline preload="none"></video><b>비싼 가격, 다른 방법과 비교해 주기</b><span>홈앤쇼핑 방송에서</span></figure><figure class="reel"><video src="/reels/h02.mp4" poster="/reels/h02.jpg" controls playsinline preload="none"></video><b>고객이 망설이며 물을 때</b><span>홈앤쇼핑 방송에서</span></figure><figure class="reel"><video src="/reels/h03.mp4" poster="/reels/h03.jpg" controls playsinline preload="none"></video><b>마감 4분, 결정을 미루는 고객에게</b><span>NS홈쇼핑 방송에서</span></figure><figure class="reel"><video src="/reels/h04.mp4" poster="/reels/h04.jpg" controls playsinline preload="none"></video><b>합격은 첫 3초에 갈립니다</b><span>쇼호스트 지망생 팁</span></figure><figure class="reel"><video src="/reels/h05.mp4" poster="/reels/h05.jpg" controls playsinline preload="none"></video><b>심사위원이 보는 건 딱 하나</b><span>쇼호스트 지망생 팁</span></figure><figure class="reel"><video src="/reels/h06.mp4" poster="/reels/h06.jpg" controls playsinline preload="none"></video><b>자기소개 외우면 티 납니다</b><span>쇼호스트 지망생 팁</span></figure></div><a class="insta" href="https://www.instagram.com/ryusang_academy/" target="_blank" rel="noopener">인스타그램에서 더 보기 · @ryusang_academy →</a></div>
-  </section>
-
-  <section>
-    <div class="k">CUE SHEET</div>
-    <h2>신청부터 개강까지</h2>
-    <ol class="cue">
-      <li><span class="t">01</span><div><b>적성 진단과 상담 신청</b><p>나의 쇼호스트 적성을 먼저 알아보고, 이어지는 짧은 신청서를 남겨 주세요.</p></div></li>
-      <li><span class="t">02</span><div><b>입과 역량 평가</b><p>1분 자기소개와 3분 상품 PT 영상으로 입과 역량 평가를 해요. 한 반 4명 정원이라, 결과에 따라 이번 기수에는 함께하지 못할 수도 있어요. 입과 역량 평가 비용은 수강 등록하면 돌려 드려요.</p></div></li>
-      <li><span class="t">03</span><div><b>선발 안내와 결제</b><p>카드 또는 계좌이체.</p></div></li>
-      <li><span class="t">04</span><div><b>개강</b><p>입문 개강일은 곧 안내해 드려요.</p></div></li>
-    </ol>
-  </section>
-
-  <section>
-    <div class="k">Q&amp;A</div>
-    <h2>자주 묻는 질문</h2>
-    <div>
-      <details><summary>경력이 없어도 따라갈 수 있나요?</summary><p>입문 12주는 처음 하는 분을 위한 과정이에요. 한 반 4명이라 매 수업 원장이 1:1로 봅니다.</p></details>
-      <details><summary>화상 수업으로 정말 늘까요?</summary><p>쇼호스트 일 자체가 카메라 앞에서 말하는 일이에요. 매주 영상 과제를 AI 진단과 원장 판정으로 보고, 변화를 점수로 확인해요.</p></details>
-      <details><summary>직장을 다니는데 시간이 될까요?</summary><p>주 1회 저녁 8시 90분, 집에서 들어요. 원장 생방송과 겹치면 3일 전에 알리고 같은 주에 보강해요.</p></details>
-      <details><summary>새로 연 아카데미라 검증이 안 된 것 아닌가요?</summary><p>18년 동안 신입 쇼호스트를 가르치고 면접관으로 뽑아 온 원장이 모든 수업을 직접 맡습니다.</p></details>
-    </div>
-    <p class="refund"><b>환불</b> · 개강 전에는 전액 돌려 드려요. 개강 뒤에는 남은 주 수만큼 계산한 금액에서 10%를 빼고 돌려 드려요.</p>
-  </section>
-
-  <section class="last">
-    <h2>한 반 4명, 원장이 직접 봅니다</h2>
-    <div class="cta"><a class="btn main" href="/quiz/">수강 상담 신청</a></div>
-  </section>
-
-  <footer>
-    <span>류상 쇼호스트 아카데미 · 류상의 설득 연구소</span>
-    <span>문의 ryusang73@gmail.com</span>
-    <span>에스와이컴퍼니 · 대표 전서연 · 사업자등록번호 295-28-01727</span>
-    <span>서울특별시 영등포구 선유서로21길 14, 2층 201-B573호</span>
-    <span><a href="/terms/" style="color:inherit">이용약관·환불 규정</a> · <a href="/privacy/" style="color:inherit"><b>개인정보처리방침</b></a></span>
-  </footer>
-</div>
-<a class="kakao" href="https://pf.kakao.com/_LxdPWX/chat" target="_blank" rel="noopener" aria-label="카카오톡 상담"><svg viewBox="0 0 24 24" width="22" height="22" aria-hidden="true"><path fill="#191919" d="M12 3C6.5 3 2 6.6 2 11c0 2.8 1.9 5.3 4.7 6.7l-1 3.6c-.1.3.3.6.6.4l4.3-2.8c.5.1 1 .1 1.4.1 5.5 0 10-3.6 10-8S17.5 3 12 3z"/></svg>카톡 상담</a>
 </body></html>
