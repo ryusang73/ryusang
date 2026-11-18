@@ -44,6 +44,9 @@ footer{padding:28px 0 90px;font-size:12.5px;color:#8b909c}footer span{display:bl
 #fx{position:fixed;inset:0;width:100vw;height:100vh;pointer-events:none;z-index:9998}
 #mic{position:fixed;left:0;top:0;z-index:9999;pointer-events:none;width:44px;height:44px;margin:-22px 0 0 -22px;opacity:0;transition:opacity .2s,scale .15s;will-change:transform}
 #mic.on{opacity:1}#mic.big{scale:1.45}
+#mic{filter:drop-shadow(0 0 6px rgba(255,40,20,.0))}#mic.on{animation:onair 1.3s ease-in-out infinite}#mic.on .hd{animation:onairhd 1.3s ease-in-out infinite}
+@keyframes onair{0%,55%{filter:drop-shadow(0 0 9px rgba(255,40,20,.95))}70%,100%{filter:drop-shadow(0 0 0 rgba(255,40,20,0))}}
+@keyframes onairhd{0%,55%{fill:#ff3b26}70%,100%{fill:#7a1b14}}
 @media (pointer:fine){html.mic *{cursor:none!important}}
 @media (pointer:coarse){#mic{display:none}}
 @media (prefers-reduced-motion:reduce){#fx,#mic{display:none}html.mic *{cursor:auto!important}}
@@ -91,7 +94,7 @@ footer{padding:28px 0 90px;font-size:12.5px;color:#8b909c}footer span{display:bl
 <footer><div class="w"><span>류상 쇼호스트 아카데미 · 류상의 설득 연구소</span><span>에스와이컴퍼니 · 대표 전서연 · 사업자등록번호 295-28-01727</span><span>서울특별시 영등포구 선유서로21길 14, 2층 201-B573호</span><span>문의 ryusang73@gmail.com</span><span><a href="/terms/" style="color:inherit">이용약관·환불 규정</a> · <a href="/privacy/" style="color:inherit"><b>개인정보처리방침</b></a></span></div></footer>
 <a class="kk" href="https://pf.kakao.com/_LxdPWX/chat" target="_blank" rel="noopener" aria-label="카카오톡 상담">카톡 상담</a>
 <canvas id="fx"></canvas>
-<svg id="mic" viewBox="0 0 34 34" aria-hidden="true"><g transform="rotate(-25 17 17)"><path d="M8.5 15v1.5a8.5 8.5 0 0 0 17 0V15M17 25v4M12.5 30h9" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><rect x="12" y="3" width="10" height="17" rx="5" fill="#e8321f" stroke="#fff" stroke-width="2.6"/><path d="M12.6 8.5h8.8M12.6 12.5h8.8" stroke="#fff" stroke-width="1.2" opacity=".85"/><path d="M8.5 15v1.5a8.5 8.5 0 0 0 17 0V15" fill="none" stroke="#ffcc00" stroke-width="2.6" stroke-linecap="round"/><path d="M17 25v4M12.5 30h9" stroke="#ffcc00" stroke-width="2.6" stroke-linecap="round"/></g></svg>
+<svg id="mic" viewBox="0 0 34 34" aria-hidden="true"><g transform="rotate(-25 17 17)"><path d="M8.5 15v1.5a8.5 8.5 0 0 0 17 0V15M17 25v4M12.5 30h9" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/><rect class="hd" x="12" y="3" width="10" height="17" rx="5" fill="#e8321f" stroke="#fff" stroke-width="2.6"/><path d="M12.6 8.5h8.8M12.6 12.5h8.8" stroke="#fff" stroke-width="1.2" opacity=".85"/><path d="M8.5 15v1.5a8.5 8.5 0 0 0 17 0V15" fill="none" stroke="#ffcc00" stroke-width="2.6" stroke-linecap="round"/><path d="M17 25v4M12.5 30h9" stroke="#ffcc00" stroke-width="2.6" stroke-linecap="round"/></g></svg>
 <script>(function(){ var fine=matchMedia('(pointer:fine)').matches, calm=matchMedia('(prefers-reduced-motion:reduce)').matches;
  var cv=document.getElementById('fx'),cx=cv.getContext('2d'),mic=document.getElementById('mic');
  var W,H,dpr=Math.min(devicePixelRatio||1,2);
