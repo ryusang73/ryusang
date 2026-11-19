@@ -1,6 +1,4 @@
 User-agent: *
 Allow: /
-Disallow: /preview-academy-1103/
 Disallow: /draft/
-Disallow: /dl-1103/
 Sitemap: https://www.ryusanglab.com/sitemap.xml
