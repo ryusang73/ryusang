@@ -22,7 +22,7 @@ button{cursor:pointer;background:var(--ink);color:var(--bg);border-color:var(--i
 </style></head><body><main>
 <div id="login" class="card" hidden><h1>관리자 로그인</h1><input id="pw" type="password" placeholder="비밀번호" autocomplete="current-password"><button id="go" style="width:100%">들어가기</button><p id="msg" class="err"></p></div>
 <div id="app" hidden>
-<h1>류상 아카데미 관리자 <button id="out" style="float:right;font-size:13px;padding:6px 10px">나가기</button></h1>
+<h1>류상 아카데미 관리자 <span class="sub">(15초마다 자동 새로고침)</span> <button id="out" style="float:right;font-size:13px;padding:6px 10px">나가기</button></h1>
 <div class="tabs" style="margin-bottom:12px"><button data-d="1" class="on">오늘</button><button data-d="7">7일</button><button data-d="30">30일</button><button data-d="0">전체</button></div>
 <div class="kpi" id="kpi"></div><p class="sub" id="note"></p>
 <div class="card"><h2>퀴즈 단계별 이탈 (방문자 수)</h2><div id="funnel"></div></div>
@@ -53,8 +53,8 @@ function draw(){
   const ev=D.events.filter(e=>e.t>=from),by=k=>ev.filter(e=>e.e===k);
   const pv=by('pv'),qs=by('quiz_start'),qd=by('quiz_done'),kk=by('kakao_click');
   const qsV=uniq(qs),qdV=uniq(qd),kkV=uniq(kk);
-  $('kpi').innerHTML=[['방문자 수',uniq(pv)],['페이지 조회',pv.length],['퀴즈 시작',qsV],['퀴즈 완료',qdV],['카톡 상담 클릭',kkV],['클릭 전환율',qdV?Math.round(kkV/qdV*100)+'%':'-']].map(x=>`<div><b>${x[1]}</b><span>${x[0]}</span></div>`).join('');
-  $('note').textContent='방문자 수는 무작위 방문자 번호 기준(같은 기기·브라우저는 한 명으로 셉니다). 전환율 = 카톡 상담을 누른 사람 ÷ 퀴즈를 끝낸 사람.'+(D.events.length>=29999?' 기록이 가득 차 오래된 것부터 지워지고 있습니다.':'');
+  $('kpi').innerHTML=[['지금 접속 중(5분)',D.live||0],['방문자 수',uniq(pv)],['페이지 조회',pv.length],['퀴즈 시작',qsV],['퀴즈 완료',qdV],['카톡 상담 클릭',kkV],['클릭 전환율',qdV?Math.round(kkV/qdV*100)+'%':'-']].map(x=>`<div><b>${x[1]}</b><span>${x[0]}</span></div>`).join('');
+  $('note').textContent='방문자 수는 무작위 방문자 번호 기준(같은 기기·브라우저는 한 명으로 셉니다). 전환율 = 카톡 상담을 누른 사람 ÷ 퀴즈를 끝낸 사람.'+(D.events.length>=9999?' 기록이 가득 차 오래된 것부터 지워지고 있습니다.':'');
   const steps=[['퀴즈 시작',qsV]];for(let i=1;i<=10;i++)steps.push([i+'번 문항',uniq(ev.filter(e=>e.e==='quiz_step'&&e.s===i))]);steps.push(['결과 보기',qdV],['카톡 상담 클릭',kkV]);
   $('funnel').innerHTML=bars(steps,qsV);
   const kv=kk.length;$('kk').innerHTML=`<p style="margin:0">클릭 ${kv}회 (${kkV}명) · 퀴즈 완료 ${qdV}명 중 ${qdV?Math.round(kkV/qdV*100):0}%</p>`+bars(Object.entries(kk.reduce((a,e)=>{const k=e.p+(e.rid?' (결과 번호 있음)':'');a[k]=(a[k]||0)+1;return a},{})).sort((a,b)=>b[1]-a[1]).slice(0,8));
@@ -76,5 +76,6 @@ $('out').onclick=async()=>{await fetch('/api/admin?out=1');location.reload()};
 $('sq').onclick=async()=>{const q=$('q').value.trim();if(!q)return;const r=await fetch('/api/admin?q='+encodeURIComponent(q));const j=await r.json();
   $('found').innerHTML=j.result?'<p><b>찾은 결과</b></p>'+rtable([j.result]):'<p class="sub">찾지 못했습니다.</p>'};
 $('q').onkeydown=e=>{if(e.key==='Enter')$('sq').click()};
+setInterval(()=>{if(!$('app').hidden&&!document.hidden)load()},15000);
 load();
 </script></body></html>

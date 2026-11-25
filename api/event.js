@@ -6,7 +6,7 @@ module.exports = async (req, res) => {
   if (req.method !== 'POST') return res.status(405).end();
   try {
     const b = L.body(req);
-    if (!OK.has(b.e)) return res.status(204).end();
+    if (L.isBot(req) || !OK.has(b.e)) return res.status(204).end();
     const ev = {
       t: Date.now(), e: b.e,
       p: L.clip(b.p, 80), s: Math.max(0, Math.min(20, +b.s || 0)),
@@ -14,7 +14,7 @@ module.exports = async (req, res) => {
       reg: L.region(req), br: L.browser(req.headers['user-agent']),
       m: L.clip(b.m, 40), ref: L.clip(b.ref, 60), src: L.clip(b.src, 12)
     };
-    await L.redis([['LPUSH', 'ev', JSON.stringify(ev)], ['LTRIM', 'ev', 0, 29999]]);
+    await L.redis([['LPUSH', 'ev', JSON.stringify(ev)], ['LTRIM', 'ev', 0, 9999]]);
     res.status(204).end();
   } catch (e) { res.status(204).end(); }
 };

@@ -128,6 +128,7 @@ h1,.band,.score .big,.rec,.nums b{font-weight:900}
       <li><b>3</b><span><strong>나에게 맞는 과정</strong> 추천 (정규반 · SHOW CLASS)</span></li>
     </ul>
     <button class="btn" id="start" type="button">3분 진단 시작</button>
+    <p class="note" style="margin:10px 0 0;font-size:.82rem;opacity:.85">상담 연결을 위해 퀴즈 답변·결과와 접속 시각·접속 지역(시·도)·브라우저 종류를 저장합니다(최대 1년). 이름·전화번호는 받지 않아요. 자세한 내용은 <a href="/privacy/" style="color:inherit">개인정보처리방침</a>.</p>
   </div>
   <div class="trust">
     <h2>누가 만든 진단인가요?</h2>
@@ -180,6 +181,7 @@ h1,.band,.score .big,.rec,.nums b{font-weight:900}
       <li><b>3</b><span>확인한 뒤 맞는 과정과 영상 평가 방법을 안내해 드려요.</span></li>
     </ol>
   </div>
+  <p class="note" style="max-width:520px;margin:14px auto 0;text-align:center">상담 연결을 위해 결과 내용과 접속 시각·접속 지역(시·도)·브라우저 종류를 저장합니다. 이름·전화번호는 이 화면에서 받지 않아요. 카톡 상담에서 알려 주신 정보와 상담 번호로 이어질 수 있습니다. 자세한 내용은 <a href="/privacy/" style="color:inherit">개인정보처리방침</a>.</p>
   <p class="cheer">합격은 끝까지 응원하고,<br>모바일 방송 출연 기회까지 한 번에!</p>
   <button class="back" id="again" type="button" style="display:block;margin:12px auto 0">처음부터 다시 하기</button>
 </section>
@@ -249,7 +251,8 @@ function finish(){
   if(when==='later')why+=' 아직 알아보는 중이라면 입과 역량 평가로 지금 위치부터 확인해 보세요.';
   $('rec').textContent=rec;$('recwhy').textContent=why;
   const scoreLine=`연습 습관 ${totalLabel} / 더 채울 곳: ${weakList.map(k=>AREAS[k]).join(', ')}`;
-  const base=`· 진단 결과: ${scoreLine}\n· 추천 과정: ${rec}`;
+  const five=Object.keys(AREAS).map(k=>`${AREAS[k]} ${lv(pct(k))}`).join(' / ');
+  const base=`· 진단 결과: ${scoreLine}\n· 5가지: ${five}\n· 추천 과정: ${rec}`;
   $('msgtext').textContent=base;
   show('result');
   if(window.RT)RT('quiz_done');

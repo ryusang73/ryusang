@@ -18,13 +18,14 @@ exports.redis = async (cmds) => {
   return j.map(x => { if (x.error) throw new Error(x.error); return x.result; });
 };
 
-const sig = () => crypto.createHmac('sha256', process.env.ADMIN_PASSWORD || '').update('ryusang-admin-v1').digest('hex');
-exports.makeCookie = () => 'adm=' + sig() + '; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=43200';
+const sig = (exp) => crypto.createHmac('sha256', process.env.ADMIN_PASSWORD || '').update('ryusang-admin-v2|' + exp).digest('hex');
+exports.makeCookie = () => { const exp = Date.now() + 12 * 3600e3; return 'adm=' + exp + '.' + sig(exp) + '; Path=/; HttpOnly; Secure; SameSite=Strict; Max-Age=43200'; };
+exports.isBot = (req) => { const ua = String((req.headers || {})['user-agent'] || ''); return !ua || /bot|crawl|spider|slurp|vercel|preview|headless|lighthouse/i.test(ua); };
 exports.isAdmin = (req) => {
   if (!process.env.ADMIN_PASSWORD) return false;
-  const m = /(?:^|;\s*)adm=([0-9a-f]+)/.exec(req.headers.cookie || '');
-  if (!m) return false;
-  const a = Buffer.from(m[1]), b = Buffer.from(sig());
+  const m = /(?:^|;\s*)adm=(\d+)\.([0-9a-f]+)/.exec(req.headers.cookie || '');
+  if (!m || Number(m[1]) < Date.now()) return false;
+  const a = Buffer.from(m[2]), b = Buffer.from(sig(m[1]));
   return a.length === b.length && crypto.timingSafeEqual(a, b);
 };
 exports.checkPassword = (p) => {
