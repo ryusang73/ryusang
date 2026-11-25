@@ -16,6 +16,7 @@ module.exports = async (req, res) => {
         rec: L.clip(r.rec, 40), recwhy: L.clip(r.recwhy, 400),
         who: L.clip(r.who, 12), when: L.clip(r.when, 12),
         ans: Array.isArray(r.ans) ? r.ans.slice(0, 12) : [],
+        qa: Array.isArray(r.qa) ? r.qa.slice(0, 12).map(x => [L.clip(x && x[0], 120), L.clip(x && x[1], 200)]) : [],
         src: b.src === 'ad' ? 'ad' : 'quiz'
       };
       let id = rid();

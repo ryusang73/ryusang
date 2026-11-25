@@ -30,6 +30,7 @@ button{cursor:pointer;background:var(--ink);color:var(--bg);border-color:var(--i
 <div class="card"><h2>많이 본 페이지</h2><div id="pages"></div></div>
 <div class="card"><h2>많이 누른 메뉴</h2><div id="menus"></div></div>
 <div class="card"><h2>시간대 / 지역(시·도) / 브라우저</h2><div id="hours"></div><div id="regs" style="margin-top:14px"></div><div id="brs" style="margin-top:14px"></div></div>
+<div class="card"><h2>최근 활동 <span class="sub">(언제·어디서·어떤 브라우저로 눌렀는지, 최근 100건)</span></h2><div id="evl"></div></div>
 <div class="card"><h2>퀴즈 결과 목록</h2><p><input id="q" placeholder="결과 번호(R-1234) 또는 결과 주소" style="width:min(320px,100%)"> <button id="sq">찾기</button></p><div id="found"></div><div id="rlist"></div></div>
 </div></main>
 <script>
@@ -53,7 +54,7 @@ function draw(){
   const ev=D.events.filter(e=>e.t>=from),by=k=>ev.filter(e=>e.e===k);
   const pv=by('pv'),qs=by('quiz_start'),qd=by('quiz_done'),kk=by('kakao_click');
   const qsV=uniq(qs),qdV=uniq(qd),kkV=uniq(kk);
-  $('kpi').innerHTML=[['지금 접속 중(5분)',D.live||0],['방문자 수',uniq(pv)],['페이지 조회',pv.length],['퀴즈 시작',qsV],['퀴즈 완료',qdV],['카톡 상담 클릭',kkV],['클릭 전환율',qdV?Math.round(kkV/qdV*100)+'%':'-']].map(x=>`<div><b>${x[1]}</b><span>${x[0]}</span></div>`).join('');
+  $('kpi').innerHTML=[['지금 접속 중(5분)',D.live||0],['수강신청 클릭',by('menu').filter(e=>/^\/quiz/.test(e.m||'')).length],['방문자 수',uniq(pv)],['페이지 조회',pv.length],['퀴즈 시작',qsV],['퀴즈 완료',qdV],['카톡 상담 클릭',kkV],['클릭 전환율',qdV?Math.round(kkV/qdV*100)+'%':'-']].map(x=>`<div><b>${x[1]}</b><span>${x[0]}</span></div>`).join('');
   $('note').textContent='방문자 수는 무작위 방문자 번호 기준(같은 기기·브라우저는 한 명으로 셉니다). 전환율 = 카톡 상담을 누른 사람 ÷ 퀴즈를 끝낸 사람.'+(D.events.length>=9999?' 기록이 가득 차 오래된 것부터 지워지고 있습니다.':'');
   const steps=[['퀴즈 시작',qsV]];for(let i=1;i<=10;i++)steps.push([i+'번 문항',uniq(ev.filter(e=>e.e==='quiz_step'&&e.s===i))]);steps.push(['결과 보기',qdV],['카톡 상담 클릭',kkV]);
   $('funnel').innerHTML=bars(steps,qsV);
@@ -63,12 +64,14 @@ function draw(){
   const mn=cnt(by('menu'),e=>e.m).slice(0,10);$('menus').innerHTML=mn.length?bars(mn):'<p class="sub">아직 없음</p>';
   const hr=Array.from({length:24},(_,h)=>[String(h).padStart(2,'0')+'시',0]);pv.forEach(e=>hr[kst(e.t).getUTCHours()][1]++);$('hours').innerHTML=bars(hr);
   $('regs').innerHTML='<b>지역</b>'+bars(cnt(pv,e=>regName(e.reg)).slice(0,10));
-  $('brs').innerHTML='<b>브라우저</b>'+bars(cnt(pv,e=>e.br).slice(0,10));
+  $('brs').innerHTML='<b>브라우저·기기</b>'+bars(cnt(pv,e=>e.br).slice(0,10))+'<p style="margin:14px 0 4px"><b>어디서 들어왔나(유입 경로)</b></p>'+bars(cnt(pv,e=>e.ref||'직접 입력·앱').slice(0,10));
+  const NM={pv:'페이지 열림',menu:'메뉴·링크 클릭',quiz_start:'퀴즈 시작',quiz_step:'퀴즈 문항',quiz_done:'결과 도착',kakao_click:'카톡 상담 클릭',result_view:'결과 주소 열람'};
+  $('evl').innerHTML='<table><tr><th>시간</th><th>활동</th><th>내용</th><th>지역</th><th>브라우저</th></tr>'+ev.slice(0,100).map(e=>`<tr><td>${new Date(e.t).toLocaleString('ko-KR',{timeZone:'Asia/Seoul',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit',second:'2-digit'})}</td><td>${esc(NM[e.e]||e.e)}${e.s?' '+e.s:''}</td><td>${esc(e.m||e.p||'')}${e.rid?' (결과 있음)':''}</td><td>${esc(regName(e.reg))}</td><td>${esc(e.br)}</td></tr>`).join('')+'</table>';
   $('rlist').innerHTML=rtable(D.results.filter(r=>r.t>=from));
 }
 function rtable(rs){if(!rs.length)return '<p class="sub">이 기간 결과 없음</p>';
-  return '<table><tr><th>번호</th><th>시각</th><th>결과</th><th>더 채울 곳</th><th>추천</th><th>지역</th><th>경로</th><th></th></tr>'+rs.map(r=>`<tr><td>${esc(r.num)}</td><td>${new Date(r.t).toLocaleString('ko-KR',{timeZone:'Asia/Seoul',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})}</td><td>${esc(r.total)}</td><td>${esc((r.weak||[]).join(', '))}</td><td>${esc(r.rec)}</td><td>${esc(regName(r.reg))}</td><td>${r.src==='ad'?'광고':'일반'}</td><td><a href="/r/${esc(r.id)}" target="_blank" rel="noopener">열기</a> · <a href="#" data-del="${esc(r.id)}" data-num="${esc(r.num)}">지우기</a></td></tr>`).join('')+'</table>'}
-document.addEventListener('click',async e=>{const a=e.target.closest&&e.target.closest('[data-del]');if(!a)return;e.preventDefault();if(!confirm(a.dataset.num+' 결과를 완전히 지울까요? 되돌릴 수 없습니다.'))return;const r=await fetch('/api/admin?del='+encodeURIComponent(a.dataset.del),{method:'POST'});if(r.ok){$('found').innerHTML='';load()}else alert('지우지 못했습니다')});
+  return '<table><tr><th>번호</th><th>시각</th><th>결과</th><th>더 채울 곳</th><th>추천</th><th>지역</th><th>경로</th><th></th></tr>'+rs.map(r=>`<tr><td>${esc(r.num)}</td><td>${new Date(r.t).toLocaleString('ko-KR',{timeZone:'Asia/Seoul',month:'numeric',day:'numeric',hour:'2-digit',minute:'2-digit'})}</td><td>${esc(r.total)}</td><td>${esc((r.weak||[]).join(', '))}</td><td>${esc(r.rec)}</td><td>${esc(regName(r.reg))}</td><td>${r.src==='ad'?'광고':'일반'}</td><td><a href="/r/${esc(r.id)}" target="_blank" rel="noopener">열기</a> · <a href="#" data-qa="${esc(r.id)}">답변 보기</a> · <a href="#" data-del="${esc(r.id)}" data-num="${esc(r.num)}">지우기</a></td></tr>`).join('')+'</table>'}
+document.addEventListener('click',async e=>{const qa=e.target.closest&&e.target.closest('[data-qa]');if(qa){e.preventDefault();const j=await (await fetch('/api/admin?q='+encodeURIComponent(qa.dataset.qa))).json();const r=j.result;$('found').innerHTML=r?'<p><b>'+esc(r.num)+' 답변 전체</b></p>'+(r.qa&&r.qa.length?'<table>'+r.qa.map(x=>'<tr><td style="white-space:normal">'+esc(x[0])+'</td><td style="white-space:normal"><b>'+esc(x[1])+'</b></td></tr>').join('')+'</table>':'<p class="sub">답변 내용이 저장되지 않은 결과예요</p>')+'<p class="sub">'+esc(r.recwhy||'')+'</p>':'';$('found').scrollIntoView({behavior:'smooth'});return}const a=e.target.closest&&e.target.closest('[data-del]');if(!a)return;e.preventDefault();if(!confirm(a.dataset.num+' 결과를 완전히 지울까요? 되돌릴 수 없습니다.'))return;const r=await fetch('/api/admin?del='+encodeURIComponent(a.dataset.del),{method:'POST'});if(r.ok){$('found').innerHTML='';load()}else alert('지우지 못했습니다')});
 document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{document.querySelectorAll('.tabs button').forEach(x=>x.classList.remove('on'));b.classList.add('on');days=+b.dataset.d;draw()});
 $('go').onclick=async()=>{$('msg').textContent='';const r=await fetch('/api/admin',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({password:$('pw').value})});
   if(r.ok){$('pw').value='';load()}else{const e=await r.json().catch(()=>({}));$('msg').textContent=e.error==='no-password-set'?'비밀번호가 아직 설정되지 않았습니다.':'비밀번호가 맞지 않습니다.'}};

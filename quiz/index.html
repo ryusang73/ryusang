@@ -256,7 +256,7 @@ function finish(){
   $('msgtext').textContent=base;
   show('result');
   if(window.RT)RT('quiz_done');
-  const payload={v:window.RT_VID||'',src:location.pathname.indexOf('/quiz/ad')===0?'ad':'quiz',r:{total:totalLabel,areas:Object.keys(AREAS).map(k=>({k:k,name:AREAS[k],pct:pct(k),label:lv(pct(k)),weak:weakList.includes(k)})),weak:weakList.map(k=>AREAS[k]),rec:rec,recwhy:why,who:who||'',when:when||'',ans:ans}};
+  const payload={v:window.RT_VID||'',src:location.pathname.indexOf('/quiz/ad')===0?'ad':'quiz',r:{total:totalLabel,areas:Object.keys(AREAS).map(k=>({k:k,name:AREAS[k],pct:pct(k),label:lv(pct(k)),weak:weakList.includes(k)})),weak:weakList.map(k=>AREAS[k]),rec:rec,recwhy:why,who:who||'',when:when||'',ans:ans,qa:Q.map((q,n)=>[q.t,Array.isArray(ans[n])?ans[n].map(k=>q.o[k][0]).join(', '):((q.o.find(o=>o[1]===ans[n])||[''])[0])])}};
   fetch('/api/result',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
    .then(r=>r.ok?r.json():Promise.reject()).then(d=>{
      const url=location.origin+'/r/'+d.id;window.RT_RID=d.id;
