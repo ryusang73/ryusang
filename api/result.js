@@ -7,6 +7,7 @@ module.exports = async (req, res) => {
   res.setHeader('Cache-Control', 'no-store');
   try {
     if (req.method === 'POST') {
+      return res.status(410).json({ error: 'disabled' }); // 2026-11-25 결과 저장 중단
       const b = L.body(req);
       const r = b.r || {};
       const clean = {

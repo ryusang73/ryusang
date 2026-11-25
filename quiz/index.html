@@ -128,7 +128,7 @@ h1,.band,.score .big,.rec,.nums b{font-weight:900}
       <li><b>3</b><span><strong>나에게 맞는 과정</strong> 추천 (정규반 · SHOW CLASS)</span></li>
     </ul>
     <button class="btn" id="start" type="button">3분 진단 시작</button>
-    <p class="note" style="margin:10px 0 0;font-size:.82rem;opacity:.85">상담 연결을 위해 퀴즈 답변·결과와 접속 시각·접속 지역(시·도)·브라우저 종류를 저장합니다(최대 1년). 이름·전화번호는 받지 않아요. 자세한 내용은 <a href="/privacy/" style="color:inherit">개인정보처리방침</a>.</p>
+    <p class="note" style="margin:10px 0 0;font-size:.82rem;opacity:.85">답과 결과는 이 화면에서만 보이고 저장하지 않습니다. 방문·시작·완료 같은 익명 숫자만 셉니다. 자세한 내용은 <a href="/privacy/" style="color:inherit">개인정보처리방침</a>.</p>
   </div>
   <div class="trust">
     <h2>누가 만든 진단인가요?</h2>
@@ -170,18 +170,11 @@ h1,.band,.score .big,.rec,.nums b{font-weight:900}
     <p id="recwhy" style="margin:0"></p>
   </div>
   <div class="card" id="cta">
-    <h2>카톡으로 바로 상담받기</h2>
-    <p style="margin:0">내 결과를 카톡에 붙여 보내 주세요. 결과를 보고 나에게 맞는 과정과 영상 평가 방법을 안내해 드려요.</p>
-    <div class="msg" id="msg"><small>카톡에 붙여 넣을 내용</small><span id="msgtext"></span></div>
-    <p class="note" id="rnum" hidden style="margin:10px 0 0"></p>
-    <a class="btn" id="apply" style="margin-top:14px;background:#FEE500;color:#191919" href="https://pf.kakao.com/_wxnBvX/chat" target="_blank" rel="noopener" referrerpolicy="unsafe-url">내용 복사하고 카톡 상담 열기</a>
-    <ol class="steps">
-      <li><b>1</b><span>버튼을 누르면 내용이 복사되고 카톡 채팅창이 열려요.</span></li>
-      <li><b>2</b><span>채팅창에 붙여 넣고 보내 주세요. 이름과 연락 가능한 시간도 알려 주시면 좋아요.</span></li>
-      <li><b>3</b><span>확인한 뒤 맞는 과정과 영상 평가 방법을 안내해 드려요.</span></li>
-    </ol>
+    <h2>이 점수로, 어디부터 챙길까요?</h2>
+    <p style="margin:0">퀴즈로 알 수 있는 건 여기까지예요. 말투와 발성, 시선은 방송 28년 차 쇼호스트가 직접 들어야 짚을 수 있어요. 이 점수로 어디부터 챙기면 좋을지, 상담에서 같이 이야기해 보세요.</p>
+    <a class="btn" id="apply" style="margin-top:14px;background:#FEE500;color:#191919" href="https://pf.kakao.com/_wxnBvX/chat" target="_blank" rel="noopener">카톡으로 상담하기</a>
   </div>
-  <p class="note" style="max-width:520px;margin:14px auto 0;text-align:center">상담 연결을 위해 결과 내용과 접속 시각·접속 지역(시·도)·브라우저 종류를 저장합니다. 이름·전화번호는 이 화면에서 받지 않아요. 카톡 상담에서 알려 주신 정보와 상담 번호로 이어질 수 있습니다. 결과 주소를 가진 사람은 누구나 결과를 볼 수 있으니 남에게 공유하지 마세요. 자세한 내용은 <a href="/privacy/" style="color:inherit">개인정보처리방침</a>.</p>
+  <p class="note" style="max-width:520px;margin:14px auto 0;text-align:center">이 결과는 이 화면에서만 보이고 저장하지 않습니다(새로 고침하면 사라져요). 자세한 내용은 <a href="/privacy/" style="color:inherit">개인정보처리방침</a>.</p>
   <p class="cheer">합격은 끝까지 응원하고,<br>모바일 방송 출연 기회까지 한 번에!</p>
   <button class="back" id="again" type="button" style="display:block;margin:12px auto 0">처음부터 다시 하기</button>
 </section>
@@ -245,27 +238,11 @@ function finish(){
   else{rec='정규반';why=who==='owner'?'내 상품으로 「팔리는 말」을 만드는 기본기부터 시작합니다. 상담에서 사장님 상황에 맞춰 안내해 드립니다.':'한 반 4명, 집에서 화상으로 12주. 매 수업 류상 원장이 1:1로 봐 드립니다. 입문을 마치고 더 가고 싶으면 SHOW CLASS로 이어집니다.'}
   if(when==='later')why+=' 아직 알아보는 중이라면 입과 역량 평가로 지금 위치부터 확인해 보세요.';
   $('rec').textContent=rec;$('recwhy').textContent=why;
-  const scoreLine=`연습 습관 ${totalLabel} / 더 채울 곳: ${weakList.map(k=>AREAS[k]).join(', ')}`;
-  const five=Object.keys(AREAS).map(k=>`${AREAS[k]} ${lv(pct(k))}`).join(' / ');
-  const base=`· 진단 결과: ${scoreLine}\n· 항목별: ${five}\n· 추천 과정: ${rec}`;
-  $('msgtext').textContent=base;
   show('result');
   if(window.RT)RT('quiz_done');
-  const payload={v:window.RT_VID||'',src:location.pathname.indexOf('/quiz/ad')===0?'ad':'quiz',r:{total:totalLabel,areas:Object.keys(AREAS).map(k=>({k:k,name:AREAS[k],pct:pct(k),label:lv(pct(k)),weak:weakList.includes(k)})),weak:weakList.map(k=>AREAS[k]),rec:rec,recwhy:why,who:who||'',when:when||'',ans:ans,qa:Q.map((q,n)=>[q.t,Array.isArray(ans[n])?ans[n].map(k=>q.o[k][0]).join(', '):((q.o.find(o=>o[1]===ans[n])||[''])[0])])}};
-  fetch('/api/result',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)})
-   .then(r=>r.ok?r.json():Promise.reject()).then(d=>{
-     const url=location.origin+'/r/'+d.id;window.RT_RID=d.id;
-     $('msgtext').textContent=base+`\n· 결과 보기: ${url}\n· 결과 번호: ${d.num}`;
-     $('rnum').textContent='내 결과 번호 '+d.num+' (상담 때 알려 주셔도 됩니다)';$('rnum').hidden=false;
-     try{history.replaceState(null,'','/r/'+d.id)}catch(e){}
-   }).catch(()=>{});
 }
 $('start').onclick=()=>{i=0;ans=[];if(window.RT)RT('quiz_start');show('quiz');render()};
 $('back').onclick=()=>{if(i>0){i--;render()}};
-$('apply').onclick=()=>{const t=$('msgtext').textContent;
-  try{navigator.clipboard.writeText(t).catch(()=>{})}catch(e){}
-  try{const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove()}catch(e){}
-};
 const QPATH=location.pathname;$('again').onclick=()=>{try{history.replaceState(null,'',QPATH)}catch(e){}show('intro')};
 </script>
 </body></html>
