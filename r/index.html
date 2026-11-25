@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="unsafe-url">
+<title>내 연습 습관 진단 결과</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+KR:wght@700;900&family=Noto+Sans+KR:wght@400;500;700&display=swap">
+<style>
+/* 한 화면씩 넘기는 세로 카드 흐름: 표지 → 10문항 → 결과. 남색 무대 + 노란 조명 */
+:root{
+  --bg:#f4f6fb; --card:#ffffff; --ink:#112147; --sub:#56617b; --line:#dde3ef;
+  --stage:#112147; --stage-ink:#ffffff; --spot:#ffcc00; --spot-ink:#112147; --soft:#eaf0fb;
+  --display:"Noto Serif KR",serif;
+  --body:"Noto Sans KR",system-ui,-apple-system,"Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0a1122;--card:#131c35;--ink:#eef1f8;--sub:#a8b2c8;--line:#26314f;--stage:#0d1830;--soft:#1a2545;color-scheme:dark}}
+:root[data-theme="dark"]{--bg:#0a1122;--card:#131c35;--ink:#eef1f8;--sub:#a8b2c8;--line:#26314f;--stage:#0d1830;--soft:#1a2545;color-scheme:dark}
+*{box-sizing:border-box}
+body{word-break:keep-all;overflow-wrap:break-word;background:var(--bg);color:var(--ink);font-family:var(--body);line-height:1.6;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:16px 32px}
+.nb{white-space:nowrap}
+h1,.stage,.lead,.gets li,.steps li,.note,.msg,.q h2,.opt{word-break:keep-all;overflow-wrap:break-word}
+main{max-width:520px;margin:0 auto}
+.stage{background:var(--stage);color:var(--stage-ink);border-radius:18px;padding:28px 22px;position:relative;overflow:hidden}
+.stage::before{content:"";position:absolute;inset:-40% -20% auto;height:120%;background:radial-gradient(closest-side,rgba(255,204,0,.22),transparent);pointer-events:none}
+.band{font-family:var(--display);font-size:1.05rem;letter-spacing:.02em;position:relative}
+.band small{display:block;font-family:var(--body);font-weight:700;font-size:.82rem;color:var(--spot)}
+h1{font-family:var(--display);font-weight:400;font-size:clamp(1.9rem,8vw,2.5rem);line-height:1.2;margin:18px 0 10px;text-wrap:balance;position:relative}
+h1 em{font-style:normal;color:var(--spot)}
+.lead{color:#c9d2e6;margin:0;position:relative}
+.gets{display:grid;gap:10px;margin:22px 0 0;padding:0;list-style:none;position:relative}
+.gets li{display:flex;gap:12px;align-items:flex-start;background:rgba(255,255,255,.07);border-radius:12px;padding:12px 14px}
+.gets b{font-family:var(--display);font-weight:400;color:var(--spot);font-size:1.2rem;min-width:1.4em}
+.btn{display:block;width:100%;border:0;border-radius:14px;padding:16px;font:700 1.08rem var(--body);background:var(--spot);color:var(--spot-ink);cursor:pointer;text-align:center;text-decoration:none}
+.btn:focus-visible,.opt:focus-visible{outline:3px solid var(--ink);outline-offset:2px}
+.stage .btn{margin-top:22px;position:relative}
+.trust{margin-top:18px;background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px}
+.trust h2{font-size:1rem;margin:0 0 8px}
+.trust p{margin:0;color:var(--sub)}
+.trust .order{margin:0 0 10px;color:var(--ink);font-weight:700}
+.nums{display:flex;gap:10px;flex-wrap:wrap;margin-top:12px}
+.nums div{flex:1;min-width:88px;background:var(--soft);border-radius:10px;padding:10px 12px}
+.nums b{display:block;font-family:var(--display);font-weight:400;font-size:1.3rem;font-variant-numeric:tabular-nums}
+.nums span{font-size:.82rem;color:var(--sub)}
+.q{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:22px 18px}
+.bar{height:6px;background:var(--soft);border-radius:3px;overflow:hidden;margin-bottom:14px}
+.bar i{display:block;height:100%;background:var(--spot);transition:width .3s}
+.qn{font-size:.85rem;color:var(--sub);font-variant-numeric:tabular-nums}
+.q h2{font-size:1.2rem;margin:4px 0 16px;text-wrap:balance}
+.opts{display:grid;gap:10px}
+.opt{text-align:left;font:500 1rem var(--body);color:var(--ink);background:var(--soft);border:2px solid transparent;border-radius:12px;padding:14px;cursor:pointer}
+.opt:hover{border-color:var(--spot)}
+.opt.on{border-color:var(--spot);background:var(--card);font-weight:700}
+.opt.on::before{content:"✓ ";color:#c99a00}
+.opts .btn{margin-top:6px}
+.btn:disabled{opacity:.4;cursor:default}
+.qsub{margin:-8px 0 14px;color:var(--sub);font-size:.92rem}
+.steps{list-style:none;padding:0;margin:14px 0 0;display:grid;gap:10px}
+.steps li{display:flex;gap:10px;align-items:flex-start}
+.steps b{flex:none;width:28px;height:28px;border-radius:50%;background:var(--ink);color:var(--card);display:grid;place-items:center;font-size:.9rem}
+.msg{background:var(--soft);border-radius:12px;padding:14px;margin-top:12px;white-space:pre-wrap;font-weight:500}
+.msg small{display:block;color:var(--sub);font-weight:400;margin-bottom:4px}
+.btn.alt{background:var(--ink);color:var(--card)}
+.msg span{user-select:text}
+.done{color:#1f8a4c;font-weight:700;margin-top:10px;text-align:center}
+.back{background:none;border:0;color:var(--sub);font:inherit;margin-top:14px;cursor:pointer;padding:4px 0}
+.score{text-align:center;position:relative}
+.score .big{font-family:var(--display);font-size:4.4rem;line-height:1;color:var(--spot);font-variant-numeric:tabular-nums}
+.score .of{color:#c9d2e6}
+.areas{display:grid;gap:12px;margin-top:18px}
+.area .top{display:flex;justify-content:space-between;font-weight:700;font-size:.95rem}
+.area .top span:last-child{font-variant-numeric:tabular-nums;color:var(--sub)}
+.area .track{height:10px;background:var(--soft);border-radius:5px;overflow:hidden;margin-top:4px}
+.area .track i{display:block;height:100%;background:var(--ink)}
+.area.weak .track i{background:#e0a400}
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:18px;margin-top:14px}
+.card h2{font-size:1.05rem;margin:0 0 10px}
+.tip{margin:0 0 10px}.tip b{display:block}
+.tip:last-child{margin-bottom:0}
+.rec{font-family:var(--display);font-weight:400;font-size:1.5rem;margin:2px 0 6px}
+.note{color:var(--sub);font-size:.88rem;margin:10px 0 0}
+.handle{user-select:all;font-weight:700}
+.cheer{text-align:center;font-weight:700;margin:18px 0 0}
+.sample{font-size:.8rem;color:var(--sub);text-align:center;margin:0 0 10px}
+@media (prefers-reduced-motion:reduce){.bar i{transition:none}}
+
+.gn{position:fixed;top:0;left:0;right:0;z-index:60;height:56px;background:rgba(10,10,12,.84);-webkit-backdrop-filter:blur(10px);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08)}
+.gn .gi{max-width:1180px;margin:0 auto;height:100%;padding:0 16px;display:flex;align-items:center;gap:20px}
+.gn .gi{justify-content:space-between}.gn .br{color:#fff;font-weight:800;font-size:15px;text-decoration:none;white-space:nowrap;margin-right:auto}
+.gn .mn{display:none;gap:22px}.gn .mn a{color:#d8d8dc;font-size:14px;text-decoration:none}.gn .mn a:hover{color:#fff;text-decoration:underline;text-underline-offset:6px}
+.gn .ap{background:#d8362b;color:#fff;font-weight:700;font-size:14px;padding:10px 18px;border-radius:4px;text-decoration:none;white-space:nowrap}
+.gn .bg{background:none;border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:8px;width:40px;height:36px;font-size:18px;cursor:pointer}
+.gn .dd{display:none;position:absolute;top:56px;left:0;right:0;background:rgba(10,10,12,.96);padding:6px 16px 14px}
+.gn .dd.on{display:block}.gn .dd a{display:block;color:#fff;text-decoration:none;padding:13px 4px;border-bottom:1px solid rgba(255,255,255,.08);font-size:16px}
+body{padding-top:56px}.gn{background:#0b0b0e!important}@media(min-width:900px){.gn .mn{display:flex}.gn .bg{display:none}.gn .dd{display:none!important}}.gn .br{font-family:"Noto Sans KR",system-ui,sans-serif}.gn *{font-family:"Noto Sans KR",system-ui,sans-serif}.gn .mn a.ap,.gn .dd a.ap{background:#d8362b;color:#fff!important;font-weight:700;border-radius:4px;text-decoration:none!important}.gn .mn a.ap{padding:9px 18px}.gn .dd a.ap{text-align:center;margin-top:14px;padding:14px;border-bottom:0}
+.gn .bn{font-weight:400;color:#aaa;font-size:13px}@media(max-width:520px){.gn .bn{display:none}}@media(min-width:900px){body{background:#0a1122;padding-block:24px 56px}main{max-width:880px}.stage{padding:52px 56px;border-radius:22px}.band{font-size:1.2rem}h1{font-size:3.4rem;margin:26px 0 16px}.lead{font-size:1.15rem}.gets{grid-template-columns:repeat(3,1fr);gap:14px;margin-top:30px}.gets li{flex-direction:column;gap:6px;padding:18px}.stage .btn{max-width:420px;margin:32px auto 0;padding:19px;font-size:1.15rem}.trust{padding:28px 32px}.q{padding:36px 44px}.q h2{font-size:1.5rem}.opt{padding:18px 20px;font-size:1.05rem}.card{padding:26px 32px}.score .big{font-size:6rem}}
+/* 디자인 규정집 v1: 바탕 검정, 포인트 붉은색, 제목 명조 */
+:root,:root[data-theme="dark"]{--bg:#f3efe8;--card:#fff;--ink:#14161b;--sub:#5a5f6a;--line:#e0d9ca;--stage:#14161b;--stage-ink:#fff;--spot:#ffcc00;--spot-ink:#14161b;--soft:#f3efe8}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#f3efe8;--card:#fff;--ink:#14161b;--sub:#5a5f6a;--line:#e0d9ca;--stage:#14161b;--soft:#f3efe8;color-scheme:light}}
+h1,.band,.score .big,.rec,.nums b{font-weight:900}
+.btn{background:#d8362b;color:#fff}.btn.alt{background:#14161b;color:#fff}.bar i{background:#d8362b}.opt:hover,.opt.on{border-color:#d8362b}.opt.on::before{color:#d8362b}
+.stage .btn{background:#d8362b;color:#fff}
+@media(min-width:900px){body{background:#14161b}}
+</style><script defer src="/t.js"></script></head>
+<body><nav class="gn" aria-label="주 메뉴"><div class="gi"><a class="br" href="/">← 홈으로<span class="bn"> · 류상 쇼호스트 아카데미</span></a><div class="mn"><a href="/#host">원장 소개</a><a href="/#abroad">해외 연수</a><a href="/#course">수강 과정</a><a href="/#where">오시는 길</a><a href="/#faq">자주 묻는 질문</a><a href="https://pf.kakao.com/_wxnBvX/chat" target="_blank" rel="noopener">문의하기</a><a class="ap" href="/quiz/">수강신청</a></div><button class="bg" aria-label="메뉴 열기" aria-expanded="false">☰</button></div><div class="dd"><a href="/#host">원장 소개</a><a href="/#abroad">해외 연수</a><a href="/#course">수강 과정</a><a href="/#where">오시는 길</a><a href="/#faq">자주 묻는 질문</a><a href="https://pf.kakao.com/_wxnBvX/chat" target="_blank" rel="noopener">문의하기</a><a class="ap" href="/quiz/">수강신청</a></div></nav><script>(function(){var b=document.querySelector(".gn .bg"),d=document.querySelector(".gn .dd");b.onclick=function(){var o=d.classList.toggle("on");b.setAttribute("aria-expanded",o)};d.onclick=function(){d.classList.remove("on")}})()</script>
+
+<main>
+<div id="loading" class="stage" style="min-height:40vh"><div class="band">결과를 불러오는 중</div></div>
+<div id="miss" hidden class="stage"><div class="band">결과를 찾을 수 없어요</div><p class="lead">주소가 잘못되었거나 이미 지워진 결과입니다.</p><a class="btn" href="/quiz/">3분 진단 해 보기</a></div>
+<section id="result" hidden>
+  <div class="stage score">
+    <div class="band">쇼호스트 연습 습관 <span id="num"></span></div>
+    <div class="big" id="total" style="font-size:2.6rem;line-height:1.2">-</div>
+    <div class="of">답해 주신 연습 습관 기준</div>
+  </div>
+  <div class="card"><h2>면접관이 보는 5가지, 내 연습 습관</h2><div class="areas" id="areas"></div>
+    <p class="note" style="margin-top:14px">직접 말하는 모습을 본 평가가 아니라, 답해 주신 연습 습관으로 본 결과입니다. 실제 발음·발성과 카메라 대응은 입과 역량 평가(영상)에서 봅니다.</p></div>
+  <div class="card"><h2>먼저 채울 곳</h2><div id="tips"></div></div>
+  <div class="card"><h2>추천 과정</h2><div class="rec" id="rec"></div><p id="recwhy" style="margin:0"></p></div>
+  <div class="card" id="cta">
+    <h2>카톡으로 바로 상담받기</h2>
+    <p style="margin:0">이 결과 주소를 카톡에 보내 주시면, 결과를 보고 맞는 과정과 영상 평가 방법을 안내해 드려요.</p>
+    <div class="msg" id="msg"><small>카톡에 붙여 넣을 내용</small><span id="msgtext"></span></div>
+    <a class="btn" id="apply" style="margin-top:14px;background:#FEE500;color:#191919" href="https://pf.kakao.com/_wxnBvX/chat" target="_blank" rel="noopener" referrerpolicy="unsafe-url">내용 복사하고 카톡 상담 열기</a>
+  </div>
+  <p class="cheer">합격은 끝까지 응원하고,<br>모바일 방송 출연 기회까지 한 번에!</p>
+  <a class="back" href="/quiz/" style="display:block;margin:12px auto 0;text-align:center">나도 해 보기</a>
+</section>
+</main>
+<script>
+const TIPS={
+ voice:'매일 1분 상품 설명을 녹음해서 들어 보세요. 끝 음절이 흐려지는 곳을 표시하고 그 문장만 세 번 다시 읽어 보세요.',
+ story:'자기소개에 「내가 직접 써 보고 놀란 순간」 하나를 넣어 보세요. 면접관은 스펙보다 그 사람만 할 수 있는 이야기를 기억합니다.',
+ close:'상품 설명을 「그래서 지금 사야 하는 이유」 한 문장으로 끝내는 연습을 하세요. 끝맺음이 약하면 앞의 설명이 다 흩어집니다.',
+ energy:'휴대폰 카메라 앞에서 1분 상품 설명을 하루 한 번 찍어 보세요. 익숙해지면 3분으로 늘려 보세요. 카메라에 익숙해지는 것만으로 목소리와 표정이 살아납니다.',
+ camera:'찍은 영상을 소리 끄고 보세요. 시선이 렌즈를 벗어나는 순간, 손이 머리로 가는 순간을 찾아 하나씩 고쳐 보세요.'};
+const $=id=>document.getElementById(id);
+const esc=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const id=(location.pathname.split('/')[2]||'').replace(/[^a-z0-9]/g,'');
+fetch('/api/result?id='+id).then(r=>r.ok?r.json():Promise.reject()).then(d=>{
+  window.RT_RID=d.id;if(window.RT)RT('result_view',{rid:d.id});
+  $('loading').hidden=true;$('result').hidden=false;
+  $('num').textContent=d.num||'';$('total').textContent=d.total;
+  $('areas').innerHTML=d.areas.map(a=>`<div class="area${a.weak?' weak':''}"><div class="top"><span>${esc(a.name)}</span><span>${esc(a.label)}</span></div><div class="track"><i style="width:${+a.pct}%"></i></div></div>`).join('');
+  $('tips').innerHTML=d.areas.filter(a=>a.weak&&TIPS[a.k]).map(a=>`<p class="tip"><b>${esc(a.name)}</b>${esc(TIPS[a.k])}</p>`).join('');
+  $('rec').textContent=d.rec;$('recwhy').textContent=d.recwhy;
+  $('msgtext').textContent=`· 진단 결과: 연습 습관 ${d.total} / 더 채울 곳: ${d.weak.join(', ')}\n· 추천 과정: ${d.rec}\n· 결과 보기: ${location.href}\n· 결과 번호: ${d.num}`;
+}).catch(()=>{$('loading').hidden=true;$('miss').hidden=false});
+$('apply').onclick=()=>{const t=$('msgtext').textContent;
+  try{navigator.clipboard.writeText(t).catch(()=>{})}catch(e){}
+  try{const ta=document.createElement('textarea');ta.value=t;ta.style.position='fixed';ta.style.opacity='0';document.body.appendChild(ta);ta.select();document.execCommand('copy');ta.remove()}catch(e){}
+};
+</script>
+</body></html>
