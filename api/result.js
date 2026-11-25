@@ -23,8 +23,8 @@ module.exports = async (req, res) => {
       const num = 'R-' + (1000 + seq);
       const rec = Object.assign({}, clean, { id, num, t: Date.now(), reg: L.region(req), br: L.browser(req.headers['user-agent']), v: L.clip(b.v, 40) });
       await L.redis([
-        ['SET', 'res:' + id, JSON.stringify(rec)],
-        ['SET', 'num:' + num, id],
+        ['SET', 'res:' + id, JSON.stringify(rec), 'EX', 31536000],
+        ['SET', 'num:' + num, id, 'EX', 31536000],
         ['LPUSH', 'reslist', id],
         ['LTRIM', 'reslist', 0, 4999]
       ]);
