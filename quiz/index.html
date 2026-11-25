@@ -156,7 +156,7 @@ h1,.band,.score .big,.rec,.nums b{font-weight:900}
     <div class="of">답해 주신 연습 습관 기준</div>
   </div>
   <div class="card">
-    <h2>면접관이 보는 3가지, 내 연습 습관</h2>
+    <h2>내 연습 습관</h2>
     <div class="areas" id="areas"></div>
     <p class="note" style="margin-top:14px">직접 말하는 모습을 본 평가가 아니라, 답해 주신 연습 습관으로 본 결과입니다. 실제 말하는 모습은 입과 역량 평가(영상)에서 봅니다.</p>
   </div>
@@ -247,7 +247,7 @@ function finish(){
   $('rec').textContent=rec;$('recwhy').textContent=why;
   const scoreLine=`연습 습관 ${totalLabel} / 더 채울 곳: ${weakList.map(k=>AREAS[k]).join(', ')}`;
   const five=Object.keys(AREAS).map(k=>`${AREAS[k]} ${lv(pct(k))}`).join(' / ');
-  const base=`· 진단 결과: ${scoreLine}\n· 3가지: ${five}\n· 추천 과정: ${rec}`;
+  const base=`· 진단 결과: ${scoreLine}\n· 항목별: ${five}\n· 추천 과정: ${rec}`;
   $('msgtext').textContent=base;
   show('result');
   if(window.RT)RT('quiz_done');
