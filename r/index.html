@@ -114,8 +114,8 @@ h1,.band,.score .big,.rec,.nums b{font-weight:900}
     <div class="big" id="total" style="font-size:2.6rem;line-height:1.2">-</div>
     <div class="of">답해 주신 연습 습관 기준</div>
   </div>
-  <div class="card"><h2>면접관이 보는 5가지, 내 연습 습관</h2><div class="areas" id="areas"></div>
-    <p class="note" style="margin-top:14px">직접 말하는 모습을 본 평가가 아니라, 답해 주신 연습 습관으로 본 결과입니다. 실제 발음·발성과 카메라 대응은 입과 역량 평가(영상)에서 봅니다.</p></div>
+  <div class="card"><h2>면접관이 보는 3가지, 내 연습 습관</h2><div class="areas" id="areas"></div>
+    <p class="note" style="margin-top:14px">직접 말하는 모습을 본 평가가 아니라, 답해 주신 연습 습관으로 본 결과입니다. 실제 말하는 모습은 입과 역량 평가(영상)에서 봅니다.</p></div>
   <div class="card"><h2>먼저 채울 곳</h2><div id="tips"></div></div>
   <div class="card"><h2>추천 과정</h2><div class="rec" id="rec"></div><p id="recwhy" style="margin:0"></p></div>
   <div class="card" id="cta">
@@ -142,10 +142,10 @@ fetch('/api/result?id='+id).then(r=>r.ok?r.json():Promise.reject()).then(d=>{
   window.RT_RID=d.id;if(window.RT)RT('result_view',{rid:d.id});
   $('loading').hidden=true;$('result').hidden=false;
   $('num').textContent=d.num||'';$('total').textContent=d.total;
-  $('areas').innerHTML=d.areas.map(a=>`<div class="area${a.weak?' weak':''}"><div class="top"><span>${esc(a.name)}</span><span>${esc(a.label)}</span></div><div class="track"><i style="width:${+a.pct}%"></i></div></div>`).join('');
-  $('tips').innerHTML=d.areas.filter(a=>a.weak&&TIPS[a.k]).map(a=>`<p class="tip"><b>${esc(a.name)}</b>${esc(TIPS[a.k])}</p>`).join('');
+  $('areas').innerHTML=d.areas.filter(a=>a.k!=='voice'&&a.k!=='camera').map(a=>`<div class="area${a.weak?' weak':''}"><div class="top"><span>${esc(a.name)}</span><span>${esc(a.label)}</span></div><div class="track"><i style="width:${+a.pct}%"></i></div></div>`).join('');
+  $('tips').innerHTML=d.areas.filter(a=>a.weak&&a.k!=='voice'&&a.k!=='camera'&&TIPS[a.k]).map(a=>`<p class="tip"><b>${esc(a.name)}</b>${esc(TIPS[a.k])}</p>`).join('');
   $('rec').textContent=d.rec;$('recwhy').textContent=d.recwhy;
-  $('msgtext').textContent=`· 진단 결과: 연습 습관 ${d.total} / 더 채울 곳: ${d.weak.join(', ')}\n· 추천 과정: ${d.rec}\n· 결과 보기: ${location.href}\n· 결과 번호: ${d.num}`;
+  $('msgtext').textContent=`· 진단 결과: 연습 습관 ${d.total} / 더 채울 곳: ${d.weak.filter(w=>w!=='발음·발성'&&w!=='이미지·카메라 대응').join(', ')}\n· 추천 과정: ${d.rec}\n· 결과 보기: ${location.href}\n· 결과 번호: ${d.num}`;
 }).catch(()=>{$('loading').hidden=true;$('miss').hidden=false});
 $('apply').onclick=()=>{const t=$('msgtext').textContent;
   try{navigator.clipboard.writeText(t).catch(()=>{})}catch(e){}
